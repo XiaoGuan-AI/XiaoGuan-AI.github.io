@@ -1,16 +1,16 @@
-<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>AI攻城狮小关 | AI攻城狮小关</title><meta name="author" content="小关"><meta name="copyright" content="小关"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="贪吃蛇小游戏        body {       background-color: #111;       color: white;       text-align: center;       font-family: sans-serif;     }     canvas {       background-color: #222;       display:">
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>AI攻城狮小关 | AI攻城狮小关</title><meta name="author" content="小关"><meta name="copyright" content="小关"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="🧗 冒险方块        body {       background-color: #121212;       color: white;       text-align: center;       font-family: sans-serif;     }     canvas {       display: block;       margin: 20px">
 <meta property="og:type" content="website">
 <meta property="og:title" content="AI攻城狮小关">
-<meta property="og:url" content="http://example.com/games/snake.html">
+<meta property="og:url" content="http://example.com/games/Adventure%20Blocks.html">
 <meta property="og:site_name" content="AI攻城狮小关">
-<meta property="og:description" content="贪吃蛇小游戏        body {       background-color: #111;       color: white;       text-align: center;       font-family: sans-serif;     }     canvas {       background-color: #222;       display:">
+<meta property="og:description" content="🧗 冒险方块        body {       background-color: #121212;       color: white;       text-align: center;       font-family: sans-serif;     }     canvas {       display: block;       margin: 20px">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/img/avatar.jpg">
-<meta property="article:published_time" content="2025-05-12T12:42:04.223Z">
-<meta property="article:modified_time" content="2025-05-12T12:42:04.223Z">
+<meta property="article:published_time" content="2025-05-12T12:45:14.171Z">
+<meta property="article:modified_time" content="2025-05-12T12:45:03.350Z">
 <meta property="article:author" content="小关">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/img/avatar.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/games/snake.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+<meta name="twitter:image" content="http://example.com/img/avatar.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/games/Adventure%20Blocks.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
     (() => {
       
     const saveToLocal = {
@@ -147,163 +147,212 @@
 <html lang="zh">
 <head>
   <meta charset="UTF-8">
-  <title>贪吃蛇小游戏</title>
+  <title>🧗 冒险方块</title>
   <style>
     body {
-      background-color: #111;
+      background-color: #121212;
       color: white;
       text-align: center;
       font-family: sans-serif;
     }
     canvas {
-      background-color: #222;
       display: block;
       margin: 20px auto;
-      border: 2px solid #555;
+      background-color: #1e1e1e;
+      border: 2px solid #444;
     }
-    button, select {
+    button {
       margin: 10px;
       padding: 10px 20px;
       font-size: 16px;
       border-radius: 6px;
       border: none;
       cursor: pointer;
+      background-color: #673ab7;
+      color: white;
     }
-    #startBtn { background-color: #4CAF50; color: white; }
-    #stopBtn { background-color: #f44336; color: white; }
-    #restartBtn { background-color: #2196F3; color: white; }
-    #difficulty { background-color: #333; color: white; }
   </style>
 </head>
 <body>
-  <h1>🐍 贪吃蛇小游戏</h1>
-  <p>使用方向键控制蛇移动</p>
-
-  <canvas id="game" width="400" height="400"></canvas>
-
-  <div class="difficulty-wrapper">
-  <label for="difficulty">选择难度：</label>
-  <select id="difficulty">
-    <option value="slow">🐢 简单</option>
-    <option value="normal" selected>🐍 普通</option>
-    <option value="fast">⚡ 困难</option>
-  </select>
-</div>
-
-
-  <div>
-    <button id="startBtn">开始游戏</button>
-    <button id="stopBtn">结束游戏</button>
-    <button id="restartBtn">再来一局</button>
-  </div>
+  <h1>🧗 冒险方块</h1>
+  <p>← → 移动，空格跳跃，躲避陷阱收集金币！</p>
+  <canvas id="game" width="500" height="300"></canvas>
+  <button onclick="startGame()">开始游戏</button>
 
   <script>
     const canvas = document.getElementById("game");
     const ctx = canvas.getContext("2d");
-    const box = 20;
-    const rows = canvas.width / box;
-    const cols = canvas.height / box;
 
-    let snake, food, dx, dy, score, gameInterval;
+    const gravity = 0.5;
+    const player = {
+      x: 50, y: 0, width: 20, height: 20,
+      vx: 0, vy: 0,
+      onGround: false
+    };
 
-    function initGame() {
-      snake = [{x: 10 * box, y: 10 * box}];
-      food = {
-        x: Math.floor(Math.random() * rows) * box,
-        y: Math.floor(Math.random() * cols) * box
-      };
-      dx = box;
-      dy = 0;
+    let keys = {};
+    let platforms = [];
+    let traps = [];
+    let coins = [];
+    let offset = 0;
+    let score = 0;
+    let gameInterval;
+
+    function resetGame() {
+      player.x = 50;
+      player.y = 0;
+      player.vx = 0;
+      player.vy = 0;
+      player.onGround = false;
+      platforms = [];
+      traps = [];
+      coins = [];
+      offset = 0;
       score = 0;
+      for (let i = 0; i < 10; i++) generatePlatform(i * 100 + 100);
+    }
+
+    function generatePlatform(x) {
+      const y = 200 + Math.random() * 50;
+      platforms.push({ x, y, width: 80, height: 10 });
+      if (Math.random() < 0.3) {
+        traps.push({ x: x + 30, y: y - 10, size: 10 });
+      }
+      if (Math.random() < 0.4) {
+        coins.push({ x: x + 20 + Math.random() * 30, y: y - 20, size: 8, collected: false });
+      }
+    }
+
+    function drawPlayer() {
+      ctx.fillStyle = "lime";
+      ctx.fillRect(player.x, player.y, player.width, player.height);
+    }
+
+    function drawPlatforms() {
+      ctx.fillStyle = "#888";
+      for (let p of platforms) {
+        ctx.fillRect(p.x - offset, p.y, p.width, p.height);
+      }
+    }
+
+    function drawTraps() {
+      ctx.fillStyle = "red";
+      for (let t of traps) {
+        ctx.beginPath();
+        ctx.arc(t.x - offset, t.y, t.size, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    function drawCoins() {
+      ctx.fillStyle = "gold";
+      for (let c of coins) {
+        if (!c.collected) {
+          ctx.beginPath();
+          ctx.arc(c.x - offset, c.y, c.size, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
+    }
+
+    function applyPhysics() {
+      player.vy += gravity;
+      player.y += player.vy;
+      player.x += player.vx;
+
+      player.onGround = false;
+      for (let p of platforms) {
+        if (
+          player.x + player.width > p.x &&
+          player.x < p.x + p.width &&
+          player.y + player.height >= p.y &&
+          player.y + player.height <= p.y + p.height &&
+          player.vy >= 0
+        ) {
+          player.y = p.y - player.height;
+          player.vy = 0;
+          player.onGround = true;
+        }
+      }
+
+      for (let t of traps) {
+        if (
+          player.x + player.width > t.x &&
+          player.x < t.x + t.size &&
+          player.y + player.height > t.y - t.size &&
+          player.y < t.y + t.size
+        ) {
+          endGame();
+        }
+      }
+
+      for (let c of coins) {
+        if (
+          !c.collected &&
+          player.x + player.width > c.x &&
+          player.x < c.x + c.size &&
+          player.y + player.height > c.y - c.size &&
+          player.y < c.y + c.size
+        ) {
+          c.collected = true;
+          score += 10;
+        }
+      }
+
+      if (player.y > canvas.height) {
+        endGame();
+      }
+
+      // 滚动视野
+      if (player.x > 250) {
+        offset += player.x - 250;
+        player.x = 250;
+        while (platforms[platforms.length - 1].x < offset + canvas.width + 100) {
+          generatePlatform(platforms[platforms.length - 1].x + 100);
+        }
+      }
+    }
+
+    function drawScore() {
+      ctx.fillStyle = "white";
+      ctx.font = "16px sans-serif";
+      ctx.fillText("得分：" + score, 10, 20);
     }
 
     function draw() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
+      applyPhysics();
+      drawPlatforms();
+      drawTraps();
+      drawCoins();
+      drawPlayer();
+      drawScore();
+    }
 
-      // 画蛇
-      ctx.fillStyle = "lime";
-      for (let s of snake) {
-        ctx.fillRect(s.x, s.y, box, box);
-      }
-
-      // 画食物
-      ctx.fillStyle = "red";
-      ctx.fillRect(food.x, food.y, box, box);
-
-      // 移动
-      const head = {
-        x: snake[0].x + dx,
-        y: snake[0].y + dy
-      };
-
-      if (
-        head.x < 0 || head.x >= canvas.width ||
-        head.y < 0 || head.y >= canvas.height ||
-        snake.some(s => s.x === head.x && s.y === head.y)
-      ) {
-        clearInterval(gameInterval);
-        gameInterval = null;
-        alert("游戏结束！你的得分是：" + score);
-        return;
-      }
-
-      snake.unshift(head);
-
-      if (head.x === food.x && head.y === food.y) {
-        score++;
-        food = {
-          x: Math.floor(Math.random() * rows) * box,
-          y: Math.floor(Math.random() * cols) * box
-        };
-      } else {
-        snake.pop();
-      }
+    function endGame() {
+      clearInterval(gameInterval);
+      alert("游戏结束！总分：" + score);
     }
 
     function startGame() {
-      if (!gameInterval) {
-        const difficulty = document.getElementById("difficulty").value;
-        let speed;
-        if (difficulty === "slow") speed = 300;
-        else if (difficulty === "fast") speed = 80;
-        else speed = 150;
-
-        gameInterval = setInterval(draw, speed);
-      }
-    }
-
-    function stopGame() {
+      resetGame();
       clearInterval(gameInterval);
-      gameInterval = null;
+      gameInterval = setInterval(draw, 1000 / 60);
     }
 
-    function restartGame() {
-      stopGame();
-      initGame();
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      draw();
-    }
-
-    // 初始状态
-    initGame();
-
-    // 控制方向
-    document.addEventListener("keydown", event => {
-      if (event.key === "ArrowLeft" && dx === 0) {
-        dx = -box; dy = 0;
-      } else if (event.key === "ArrowUp" && dy === 0) {
-        dx = 0; dy = -box;
-      } else if (event.key === "ArrowRight" && dx === 0) {
-        dx = box; dy = 0;
-      } else if (event.key === "ArrowDown" && dy === 0) {
-        dx = 0; dy = box;
+    document.addEventListener("keydown", e => {
+      keys[e.key] = true;
+      if (e.key === " " && player.onGround) {
+        player.vy = -10;
       }
+      if (e.key === "ArrowLeft") player.vx = -3;
+      if (e.key === "ArrowRight") player.vx = 3;
     });
 
-    // 按钮绑定
-    document.getElementById("startBtn").addEventListener("click", startGame);
-    document.getElementById("stopBtn").addEventListener("click", stopGame);
-    document.getElementById("restartBtn").addEventListener("click", restartGame);
+    document.addEventListener("keyup", e => {
+      keys[e.key] = false;
+      if (e.key === "ArrowLeft" || e.key === "ArrowRight") player.vx = 0;
+    });
   </script>
 </body>
 </html>

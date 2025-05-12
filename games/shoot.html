@@ -1,16 +1,16 @@
-<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>AI攻城狮小关 | AI攻城狮小关</title><meta name="author" content="小关"><meta name="copyright" content="小关"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="贪吃蛇小游戏        body {       background-color: #111;       color: white;       text-align: center;       font-family: sans-serif;     }     canvas {       background-color: #222;       display:">
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>AI攻城狮小关 | AI攻城狮小关</title><meta name="author" content="小关"><meta name="copyright" content="小关"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="🎯 打气球小游戏        body {       background-color: #0c0c0c;       color: white;       text-align: center;       font-family: sans-serif;     }     canvas {       background-color: #1e1e1e;">
 <meta property="og:type" content="website">
 <meta property="og:title" content="AI攻城狮小关">
-<meta property="og:url" content="http://example.com/games/snake.html">
+<meta property="og:url" content="http://example.com/games/shoot.html">
 <meta property="og:site_name" content="AI攻城狮小关">
-<meta property="og:description" content="贪吃蛇小游戏        body {       background-color: #111;       color: white;       text-align: center;       font-family: sans-serif;     }     canvas {       background-color: #222;       display:">
+<meta property="og:description" content="🎯 打气球小游戏        body {       background-color: #0c0c0c;       color: white;       text-align: center;       font-family: sans-serif;     }     canvas {       background-color: #1e1e1e;">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/img/avatar.jpg">
-<meta property="article:published_time" content="2025-05-12T12:42:04.223Z">
-<meta property="article:modified_time" content="2025-05-12T12:42:04.223Z">
+<meta property="article:published_time" content="2025-05-12T12:38:03.286Z">
+<meta property="article:modified_time" content="2025-05-12T12:37:51.278Z">
 <meta property="article:author" content="小关">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/img/avatar.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/games/snake.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+<meta name="twitter:image" content="http://example.com/img/avatar.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/games/shoot.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
     (() => {
       
     const saveToLocal = {
@@ -147,163 +147,121 @@
 <html lang="zh">
 <head>
   <meta charset="UTF-8">
-  <title>贪吃蛇小游戏</title>
+  <title>🎯 打气球小游戏</title>
   <style>
     body {
-      background-color: #111;
+      background-color: #0c0c0c;
       color: white;
       text-align: center;
       font-family: sans-serif;
     }
     canvas {
-      background-color: #222;
+      background-color: #1e1e1e;
       display: block;
       margin: 20px auto;
-      border: 2px solid #555;
+      border: 2px solid #444;
     }
-    button, select {
+    button {
       margin: 10px;
       padding: 10px 20px;
       font-size: 16px;
       border-radius: 6px;
       border: none;
       cursor: pointer;
+      background-color: #4CAF50;
+      color: white;
     }
-    #startBtn { background-color: #4CAF50; color: white; }
-    #stopBtn { background-color: #f44336; color: white; }
-    #restartBtn { background-color: #2196F3; color: white; }
-    #difficulty { background-color: #333; color: white; }
   </style>
 </head>
 <body>
-  <h1>🐍 贪吃蛇小游戏</h1>
-  <p>使用方向键控制蛇移动</p>
-
-  <canvas id="game" width="400" height="400"></canvas>
-
-  <div class="difficulty-wrapper">
-  <label for="difficulty">选择难度：</label>
-  <select id="difficulty">
-    <option value="slow">🐢 简单</option>
-    <option value="normal" selected>🐍 普通</option>
-    <option value="fast">⚡ 困难</option>
-  </select>
-</div>
-
-
-  <div>
-    <button id="startBtn">开始游戏</button>
-    <button id="stopBtn">结束游戏</button>
-    <button id="restartBtn">再来一局</button>
-  </div>
+  <h1>🎯 打气球小游戏</h1>
+  <p>点击鼠标发射箭，射中气球得分</p>
+  <canvas id="game" width="400" height="500"></canvas>
+  <button onclick="startGame()">开始游戏</button>
 
   <script>
     const canvas = document.getElementById("game");
     const ctx = canvas.getContext("2d");
-    const box = 20;
-    const rows = canvas.width / box;
-    const cols = canvas.height / box;
 
-    let snake, food, dx, dy, score, gameInterval;
+    let balloons = [];
+    let arrows = [];
+    let score = 0;
+    let gameInterval;
 
-    function initGame() {
-      snake = [{x: 10 * box, y: 10 * box}];
-      food = {
-        x: Math.floor(Math.random() * rows) * box,
-        y: Math.floor(Math.random() * cols) * box
-      };
-      dx = box;
-      dy = 0;
+    function resetGame() {
+      balloons = [];
+      arrows = [];
       score = 0;
+    }
+
+    function createBalloon() {
+      balloons.push({
+        x: Math.random() * 360 + 20,
+        y: 500,
+        radius: 15,
+        speed: Math.random() * 1.5 + 0.5
+      });
     }
 
     function draw() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      // 画蛇
-      ctx.fillStyle = "lime";
-      for (let s of snake) {
-        ctx.fillRect(s.x, s.y, box, box);
+      // 画箭
+      ctx.fillStyle = "white";
+      for (let arrow of arrows) {
+        ctx.fillRect(arrow.x - 2, arrow.y, 4, 20);
+        arrow.y -= 5;
       }
 
-      // 画食物
+      // 画气球
       ctx.fillStyle = "red";
-      ctx.fillRect(food.x, food.y, box, box);
+      for (let balloon of balloons) {
+        ctx.beginPath();
+        ctx.arc(balloon.x, balloon.y, balloon.radius, 0, Math.PI * 2);
+        ctx.fill();
+        balloon.y -= balloon.speed;
+      }
 
-      // 移动
-      const head = {
-        x: snake[0].x + dx,
-        y: snake[0].y + dy
-      };
+      // 碰撞检测
+      for (let i = arrows.length - 1; i >= 0; i--) {
+        for (let j = balloons.length - 1; j >= 0; j--) {
+          let dx = arrows[i].x - balloons[j].x;
+          let dy = arrows[i].y - balloons[j].y;
+          if (Math.sqrt(dx * dx + dy * dy) < balloons[j].radius) {
+            arrows.splice(i, 1);
+            balloons.splice(j, 1);
+            score++;
+            break;
+          }
+        }
+      }
 
-      if (
-        head.x < 0 || head.x >= canvas.width ||
-        head.y < 0 || head.y >= canvas.height ||
-        snake.some(s => s.x === head.x && s.y === head.y)
-      ) {
+      // 删除越界箭和气球
+      arrows = arrows.filter(a => a.y > 0);
+      balloons = balloons.filter(b => b.y > -20);
+
+      ctx.fillStyle = "white";
+      ctx.font = "18px sans-serif";
+      ctx.fillText("得分: " + score, 10, 20);
+
+      if (balloons.length > 20) {
         clearInterval(gameInterval);
-        gameInterval = null;
         alert("游戏结束！你的得分是：" + score);
-        return;
-      }
-
-      snake.unshift(head);
-
-      if (head.x === food.x && head.y === food.y) {
-        score++;
-        food = {
-          x: Math.floor(Math.random() * rows) * box,
-          y: Math.floor(Math.random() * cols) * box
-        };
-      } else {
-        snake.pop();
       }
     }
 
-    function startGame() {
-      if (!gameInterval) {
-        const difficulty = document.getElementById("difficulty").value;
-        let speed;
-        if (difficulty === "slow") speed = 300;
-        else if (difficulty === "fast") speed = 80;
-        else speed = 150;
-
-        gameInterval = setInterval(draw, speed);
-      }
-    }
-
-    function stopGame() {
-      clearInterval(gameInterval);
-      gameInterval = null;
-    }
-
-    function restartGame() {
-      stopGame();
-      initGame();
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      draw();
-    }
-
-    // 初始状态
-    initGame();
-
-    // 控制方向
-    document.addEventListener("keydown", event => {
-      if (event.key === "ArrowLeft" && dx === 0) {
-        dx = -box; dy = 0;
-      } else if (event.key === "ArrowUp" && dy === 0) {
-        dx = 0; dy = -box;
-      } else if (event.key === "ArrowRight" && dx === 0) {
-        dx = box; dy = 0;
-      } else if (event.key === "ArrowDown" && dy === 0) {
-        dx = 0; dy = box;
-      }
+    canvas.addEventListener("click", () => {
+      arrows.push({ x: 200, y: 450 });
     });
 
-    // 按钮绑定
-    document.getElementById("startBtn").addEventListener("click", startGame);
-    document.getElementById("stopBtn").addEventListener("click", stopGame);
-    document.getElementById("restartBtn").addEventListener("click", restartGame);
+    function startGame() {
+      resetGame();
+      clearInterval(gameInterval);
+      gameInterval = setInterval(() => {
+        if (Math.random() < 0.1) createBalloon();
+        draw();
+      }, 30);
+    }
   </script>
 </body>
 </html>

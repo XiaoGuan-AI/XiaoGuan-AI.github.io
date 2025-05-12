@@ -1,16 +1,16 @@
-<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>AI攻城狮小关 | AI攻城狮小关</title><meta name="author" content="小关"><meta name="copyright" content="小关"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="贪吃蛇小游戏        body {       background-color: #111;       color: white;       text-align: center;       font-family: sans-serif;     }     canvas {       background-color: #222;       display:">
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>AI攻城狮小关 | AI攻城狮小关</title><meta name="author" content="小关"><meta name="copyright" content="小关"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="🧱 打砖块小游戏        body {       background-color: #121212;       color: white;       text-align: center;       font-family: sans-serif;     }     canvas {       background-color: #222;       dis">
 <meta property="og:type" content="website">
 <meta property="og:title" content="AI攻城狮小关">
-<meta property="og:url" content="http://example.com/games/snake.html">
+<meta property="og:url" content="http://example.com/games/zhuankuai.html">
 <meta property="og:site_name" content="AI攻城狮小关">
-<meta property="og:description" content="贪吃蛇小游戏        body {       background-color: #111;       color: white;       text-align: center;       font-family: sans-serif;     }     canvas {       background-color: #222;       display:">
+<meta property="og:description" content="🧱 打砖块小游戏        body {       background-color: #121212;       color: white;       text-align: center;       font-family: sans-serif;     }     canvas {       background-color: #222;       dis">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/img/avatar.jpg">
-<meta property="article:published_time" content="2025-05-12T12:42:04.223Z">
-<meta property="article:modified_time" content="2025-05-12T12:42:04.223Z">
+<meta property="article:published_time" content="2025-05-12T12:39:47.692Z">
+<meta property="article:modified_time" content="2025-05-12T12:39:26.088Z">
 <meta property="article:author" content="小关">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/img/avatar.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/games/snake.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+<meta name="twitter:image" content="http://example.com/img/avatar.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/games/zhuankuai.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
     (() => {
       
     const saveToLocal = {
@@ -147,10 +147,10 @@
 <html lang="zh">
 <head>
   <meta charset="UTF-8">
-  <title>贪吃蛇小游戏</title>
+  <title>🧱 打砖块小游戏</title>
   <style>
     body {
-      background-color: #111;
+      background-color: #121212;
       color: white;
       text-align: center;
       font-family: sans-serif;
@@ -161,149 +161,158 @@
       margin: 20px auto;
       border: 2px solid #555;
     }
-    button, select {
+    button {
       margin: 10px;
       padding: 10px 20px;
       font-size: 16px;
       border-radius: 6px;
       border: none;
       cursor: pointer;
+      background-color: #FF9800;
+      color: white;
     }
-    #startBtn { background-color: #4CAF50; color: white; }
-    #stopBtn { background-color: #f44336; color: white; }
-    #restartBtn { background-color: #2196F3; color: white; }
-    #difficulty { background-color: #333; color: white; }
   </style>
 </head>
 <body>
-  <h1>🐍 贪吃蛇小游戏</h1>
-  <p>使用方向键控制蛇移动</p>
-
+  <h1>🧱 打砖块小游戏</h1>
+  <p>← → 控制挡板，打掉所有砖块！</p>
   <canvas id="game" width="400" height="400"></canvas>
-
-  <div class="difficulty-wrapper">
-  <label for="difficulty">选择难度：</label>
-  <select id="difficulty">
-    <option value="slow">🐢 简单</option>
-    <option value="normal" selected>🐍 普通</option>
-    <option value="fast">⚡ 困难</option>
-  </select>
-</div>
-
-
-  <div>
-    <button id="startBtn">开始游戏</button>
-    <button id="stopBtn">结束游戏</button>
-    <button id="restartBtn">再来一局</button>
-  </div>
+  <button onclick="startGame()">开始游戏</button>
 
   <script>
     const canvas = document.getElementById("game");
     const ctx = canvas.getContext("2d");
-    const box = 20;
-    const rows = canvas.width / box;
-    const cols = canvas.height / box;
 
-    let snake, food, dx, dy, score, gameInterval;
+    const paddleWidth = 80, paddleHeight = 10;
+    let paddleX = (canvas.width - paddleWidth) / 2;
+    const ballRadius = 8;
+    let x = canvas.width / 2, y = canvas.height - 30;
+    let dx = 2, dy = -2;
+    let rightPressed = false, leftPressed = false;
+    const brickRowCount = 5, brickColumnCount = 6;
+    const brickWidth = 60, brickHeight = 20;
+    const brickPadding = 10, brickOffsetTop = 30, brickOffsetLeft = 20;
+    let bricks = [];
+    let score = 0;
+    let gameInterval;
 
-    function initGame() {
-      snake = [{x: 10 * box, y: 10 * box}];
-      food = {
-        x: Math.floor(Math.random() * rows) * box,
-        y: Math.floor(Math.random() * cols) * box
-      };
-      dx = box;
-      dy = 0;
-      score = 0;
+    function initBricks() {
+      bricks = [];
+      for (let c = 0; c < brickColumnCount; c++) {
+        bricks[c] = [];
+        for (let r = 0; r < brickRowCount; r++) {
+          bricks[c][r] = { x: 0, y: 0, status: 1 };
+        }
+      }
+    }
+
+    function drawBricks() {
+      for (let c = 0; c < brickColumnCount; c++) {
+        for (let r = 0; r < brickRowCount; r++) {
+          if (bricks[c][r].status === 1) {
+            let brickX = c * (brickWidth + brickPadding) + brickOffsetLeft;
+            let brickY = r * (brickHeight + brickPadding) + brickOffsetTop;
+            bricks[c][r].x = brickX;
+            bricks[c][r].y = brickY;
+            ctx.fillStyle = "#4CAF50";
+            ctx.fillRect(brickX, brickY, brickWidth, brickHeight);
+          }
+        }
+      }
+    }
+
+    function drawBall() {
+      ctx.beginPath();
+      ctx.arc(x, y, ballRadius, 0, Math.PI * 2);
+      ctx.fillStyle = "red";
+      ctx.fill();
+      ctx.closePath();
+    }
+
+    function drawPaddle() {
+      ctx.fillStyle = "#2196F3";
+      ctx.fillRect(paddleX, canvas.height - paddleHeight, paddleWidth, paddleHeight);
+    }
+
+    function drawScore() {
+      ctx.fillStyle = "white";
+      ctx.font = "16px sans-serif";
+      ctx.fillText("得分: " + score, 10, 20);
+    }
+
+    function collisionDetection() {
+      for (let c = 0; c < brickColumnCount; c++) {
+        for (let r = 0; r < brickRowCount; r++) {
+          let b = bricks[c][r];
+          if (b.status === 1) {
+            if (
+              x > b.x && x < b.x + brickWidth &&
+              y > b.y && y < b.y + brickHeight
+            ) {
+              dy = -dy;
+              b.status = 0;
+              score++;
+              if (score === brickRowCount * brickColumnCount) {
+                alert("你赢了！总分：" + score);
+                clearInterval(gameInterval);
+              }
+            }
+          }
+        }
+      }
     }
 
     function draw() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
+      drawBricks();
+      drawBall();
+      drawPaddle();
+      drawScore();
+      collisionDetection();
 
-      // 画蛇
-      ctx.fillStyle = "lime";
-      for (let s of snake) {
-        ctx.fillRect(s.x, s.y, box, box);
+      if (x + dx > canvas.width - ballRadius || x + dx < ballRadius) {
+        dx = -dx;
+      }
+      if (y + dy < ballRadius) {
+        dy = -dy;
+      } else if (y + dy > canvas.height - ballRadius) {
+        if (x > paddleX && x < paddleX + paddleWidth) {
+          dy = -dy;
+        } else {
+          alert("游戏结束！你的得分是：" + score);
+          clearInterval(gameInterval);
+        }
       }
 
-      // 画食物
-      ctx.fillStyle = "red";
-      ctx.fillRect(food.x, food.y, box, box);
+      x += dx;
+      y += dy;
 
-      // 移动
-      const head = {
-        x: snake[0].x + dx,
-        y: snake[0].y + dy
-      };
-
-      if (
-        head.x < 0 || head.x >= canvas.width ||
-        head.y < 0 || head.y >= canvas.height ||
-        snake.some(s => s.x === head.x && s.y === head.y)
-      ) {
-        clearInterval(gameInterval);
-        gameInterval = null;
-        alert("游戏结束！你的得分是：" + score);
-        return;
-      }
-
-      snake.unshift(head);
-
-      if (head.x === food.x && head.y === food.y) {
-        score++;
-        food = {
-          x: Math.floor(Math.random() * rows) * box,
-          y: Math.floor(Math.random() * cols) * box
-        };
-      } else {
-        snake.pop();
+      if (rightPressed && paddleX < canvas.width - paddleWidth) {
+        paddleX += 6;
+      } else if (leftPressed && paddleX > 0) {
+        paddleX -= 6;
       }
     }
 
     function startGame() {
-      if (!gameInterval) {
-        const difficulty = document.getElementById("difficulty").value;
-        let speed;
-        if (difficulty === "slow") speed = 300;
-        else if (difficulty === "fast") speed = 80;
-        else speed = 150;
-
-        gameInterval = setInterval(draw, speed);
-      }
-    }
-
-    function stopGame() {
+      x = canvas.width / 2;
+      y = canvas.height - 30;
+      dx = 2; dy = -2;
+      paddleX = (canvas.width - paddleWidth) / 2;
+      score = 0;
+      initBricks();
       clearInterval(gameInterval);
-      gameInterval = null;
+      gameInterval = setInterval(draw, 16);
     }
 
-    function restartGame() {
-      stopGame();
-      initGame();
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      draw();
-    }
-
-    // 初始状态
-    initGame();
-
-    // 控制方向
-    document.addEventListener("keydown", event => {
-      if (event.key === "ArrowLeft" && dx === 0) {
-        dx = -box; dy = 0;
-      } else if (event.key === "ArrowUp" && dy === 0) {
-        dx = 0; dy = -box;
-      } else if (event.key === "ArrowRight" && dx === 0) {
-        dx = box; dy = 0;
-      } else if (event.key === "ArrowDown" && dy === 0) {
-        dx = 0; dy = box;
-      }
+    document.addEventListener("keydown", e => {
+      if (e.key === "Right" || e.key === "ArrowRight") rightPressed = true;
+      if (e.key === "Left" || e.key === "ArrowLeft") leftPressed = true;
     });
-
-    // 按钮绑定
-    document.getElementById("startBtn").addEventListener("click", startGame);
-    document.getElementById("stopBtn").addEventListener("click", stopGame);
-    document.getElementById("restartBtn").addEventListener("click", restartGame);
+    document.addEventListener("keyup", e => {
+      if (e.key === "Right" || e.key === "ArrowRight") rightPressed = false;
+      if (e.key === "Left" || e.key === "ArrowLeft") leftPressed = false;
+    });
   </script>
 </body>
 </html>
