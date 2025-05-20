@@ -1,16 +1,16 @@
-<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>AI攻城狮小关 | AI攻城狮小关</title><meta name="author" content="小关"><meta name="copyright" content="小关"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="贪吃蛇小游戏        body {       background-color: #111;       color: white;       text-align: center;       font-family: sans-serif;     }     canvas {       background-color: #222;       display:">
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>AI攻城狮小关 | AI攻城狮小关</title><meta name="author" content="小关"><meta name="copyright" content="小关"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="K-Means 动画   body{background:#111;color:#eee;font-family:Arial;text-align:center} canvas{max-width:640px;margin:0 auto} button{margin-top:12px;padding:6px 16px;background:#40c463;border:none;borde">
 <meta property="og:type" content="website">
 <meta property="og:title" content="AI攻城狮小关">
-<meta property="og:url" content="http://example.com/games/snake.html">
+<meta property="og:url" content="http://example.com/demo/kmeans.html">
 <meta property="og:site_name" content="AI攻城狮小关">
-<meta property="og:description" content="贪吃蛇小游戏        body {       background-color: #111;       color: white;       text-align: center;       font-family: sans-serif;     }     canvas {       background-color: #222;       display:">
+<meta property="og:description" content="K-Means 动画   body{background:#111;color:#eee;font-family:Arial;text-align:center} canvas{max-width:640px;margin:0 auto} button{margin-top:12px;padding:6px 16px;background:#40c463;border:none;borde">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/img/avatar.jpg">
-<meta property="article:published_time" content="2025-05-12T12:42:04.223Z">
-<meta property="article:modified_time" content="2025-05-12T12:42:04.223Z">
+<meta property="article:published_time" content="2025-05-20T05:36:56.994Z">
+<meta property="article:modified_time" content="2025-05-20T05:36:56.994Z">
 <meta property="article:author" content="小关">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/img/avatar.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/games/snake.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+<meta name="twitter:image" content="http://example.com/img/avatar.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/demo/kmeans.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
     (() => {
       
     const saveToLocal = {
@@ -144,167 +144,74 @@
   isToc: false,
   pageType: 'page'
 }</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">5</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">8</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="https://xiaoguan-ai.github.io/"><i class="fa-fw fas fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 导航</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间线</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/project/"><i class="fa-fw fas fa-diagram-project"></i><span> 项目</span></a></div><div class="menus_item"><a class="site-page" href="/achievement/"><i class="fa-fw fas fa-certificate"></i><span> 获奖证书</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-heart"></i><span> 热爱生活</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/fitness/"><i class="fa-fw fas fa-dumbbell"></i><span> 健身</span></a></li><li><a class="site-page child" href="/billiards/"><i class="fa-fw fas fa-bowling-ball"></i><span> 台球</span></a></li><li><a class="site-page child" href="/football/"><i class="fa-fw fas fa-futbol"></i><span> 足球</span></a></li><li><a class="site-page child" href="/fishing/"><i class="fa-fw fas fa-fish"></i><span> 钓鱼</span></a></li><li><a class="site-page child" href="/reading/"><i class="fa-fw fas fa-book"></i><span> 阅读</span></a></li><li><a class="site-page child" href="/arts/"><i class="fa-fw fas fa-paint-brush"></i><span> 艺术</span></a></li><li><a class="site-page child" href="/games/"><i class="fa-fw fas fa-gamepad"></i><span> 游戏</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-tools"></i><span> 工具</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/tools/"><i class="fa-fw fas fa-tools"></i><span> 在线工具</span></a></li><li><a class="site-page child" href="/demo/"><i class="fa-fw fas fa-anchor"></i><span> 动画</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/chat/"><i class="fa-fw fas fa-place-of-worship"></i><span> AI聊天室</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友人帐</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于我</span></a></div></div></div></div><div class="page" id="body-wrap"><header class="not-home-page fixed" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">AI攻城狮小关</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="https://xiaoguan-ai.github.io/"><i class="fa-fw fas fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 导航</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间线</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/project/"><i class="fa-fw fas fa-diagram-project"></i><span> 项目</span></a></div><div class="menus_item"><a class="site-page" href="/achievement/"><i class="fa-fw fas fa-certificate"></i><span> 获奖证书</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-heart"></i><span> 热爱生活</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/fitness/"><i class="fa-fw fas fa-dumbbell"></i><span> 健身</span></a></li><li><a class="site-page child" href="/billiards/"><i class="fa-fw fas fa-bowling-ball"></i><span> 台球</span></a></li><li><a class="site-page child" href="/football/"><i class="fa-fw fas fa-futbol"></i><span> 足球</span></a></li><li><a class="site-page child" href="/fishing/"><i class="fa-fw fas fa-fish"></i><span> 钓鱼</span></a></li><li><a class="site-page child" href="/reading/"><i class="fa-fw fas fa-book"></i><span> 阅读</span></a></li><li><a class="site-page child" href="/arts/"><i class="fa-fw fas fa-paint-brush"></i><span> 艺术</span></a></li><li><a class="site-page child" href="/games/"><i class="fa-fw fas fa-gamepad"></i><span> 游戏</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-tools"></i><span> 工具</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/tools/"><i class="fa-fw fas fa-tools"></i><span> 在线工具</span></a></li><li><a class="site-page child" href="/demo/"><i class="fa-fw fas fa-anchor"></i><span> 动画</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/chat/"><i class="fa-fw fas fa-place-of-worship"></i><span> AI聊天室</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友人帐</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于我</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="page-site-info"><h1 id="site-title"></h1></div></header><main class="layout" id="content-inner"><div id="page"><div class="container" id="article-container"><!DOCTYPE html>
-<html lang="zh">
+<html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
-  <title>贪吃蛇小游戏</title>
-  <style>
-    body {
-      background-color: #111;
-      color: white;
-      text-align: center;
-      font-family: sans-serif;
-    }
-    canvas {
-      background-color: #222;
-      display: block;
-      margin: 20px auto;
-      border: 2px solid #555;
-    }
-    button, select {
-      margin: 10px;
-      padding: 10px 20px;
-      font-size: 16px;
-      border-radius: 6px;
-      border: none;
-      cursor: pointer;
-    }
-    #startBtn { background-color: #4CAF50; color: white; }
-    #stopBtn { background-color: #f44336; color: white; }
-    #restartBtn { background-color: #2196F3; color: white; }
-    #difficulty { background-color: #333; color: white; }
-  </style>
+<meta charset="UTF-8">
+<title>K-Means 动画</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+body{background:#111;color:#eee;font-family:Arial;text-align:center}
+canvas{max-width:640px;margin:0 auto}
+button{margin-top:12px;padding:6px 16px;background:#40c463;border:none;border-radius:4px;color:#111;font-weight:bold;cursor:pointer}
+</style>
 </head>
 <body>
-  <h1>🐍 贪吃蛇小游戏</h1>
-  <p>使用方向键控制蛇移动</p>
+<h2>K-Means 聚类过程演示 (k=3)</h2>
+<canvas id="plot" width="640" height="480"></canvas>
+<button onclick="iterate()">▶ 下一迭代</button>
 
-  <canvas id="game" width="400" height="400"></canvas>
+<script>
+const ctx=document.getElementById('plot');
+const N=60,k=3;
+let points=[],centers=[],labels=new Array(N).fill(0),iter=0;
 
-  <div class="difficulty-wrapper">
-  <label for="difficulty">选择难度：</label>
-  <select id="difficulty">
-    <option value="slow">🐢 简单</option>
-    <option value="normal" selected>🐍 普通</option>
-    <option value="fast">⚡ 困难</option>
-  </select>
-</div>
+// 随机生成点
+for(let i=0;i<N;i++){
+  points.push({x:Math.random()*10,y:Math.random()*10});
+}
+// 随机初始化质心
+for(let i=0;i<k;i++){
+  centers.push({x:Math.random()*10,y:Math.random()*10});
+}
 
+const chart=new Chart(ctx,{
+type:'scatter',
+data:{datasets:[]},
+options:{responsive:false,animation:false,scales:{x:{min:0,max:10},y:{min:0,max:10}}}
+});
+updateChart();
 
-  <div>
-    <button id="startBtn">开始游戏</button>
-    <button id="stopBtn">结束游戏</button>
-    <button id="restartBtn">再来一局</button>
-  </div>
-
-  <script>
-    const canvas = document.getElementById("game");
-    const ctx = canvas.getContext("2d");
-    const box = 20;
-    const rows = canvas.width / box;
-    const cols = canvas.height / box;
-
-    let snake, food, dx, dy, score, gameInterval;
-
-    function initGame() {
-      snake = [{x: 10 * box, y: 10 * box}];
-      food = {
-        x: Math.floor(Math.random() * rows) * box,
-        y: Math.floor(Math.random() * cols) * box
-      };
-      dx = box;
-      dy = 0;
-      score = 0;
-    }
-
-    function draw() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      // 画蛇
-      ctx.fillStyle = "lime";
-      for (let s of snake) {
-        ctx.fillRect(s.x, s.y, box, box);
-      }
-
-      // 画食物
-      ctx.fillStyle = "red";
-      ctx.fillRect(food.x, food.y, box, box);
-
-      // 移动
-      const head = {
-        x: snake[0].x + dx,
-        y: snake[0].y + dy
-      };
-
-      if (
-        head.x < 0 || head.x >= canvas.width ||
-        head.y < 0 || head.y >= canvas.height ||
-        snake.some(s => s.x === head.x && s.y === head.y)
-      ) {
-        clearInterval(gameInterval);
-        gameInterval = null;
-        alert("游戏结束！你的得分是：" + score);
-        return;
-      }
-
-      snake.unshift(head);
-
-      if (head.x === food.x && head.y === food.y) {
-        score++;
-        food = {
-          x: Math.floor(Math.random() * rows) * box,
-          y: Math.floor(Math.random() * cols) * box
-        };
-      } else {
-        snake.pop();
-      }
-    }
-
-    function startGame() {
-      if (!gameInterval) {
-        const difficulty = document.getElementById("difficulty").value;
-        let speed;
-        if (difficulty === "slow") speed = 300;
-        else if (difficulty === "fast") speed = 80;
-        else speed = 150;
-
-        gameInterval = setInterval(draw, speed);
-      }
-    }
-
-    function stopGame() {
-      clearInterval(gameInterval);
-      gameInterval = null;
-    }
-
-    function restartGame() {
-      stopGame();
-      initGame();
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      draw();
-    }
-
-    // 初始状态
-    initGame();
-
-    // 控制方向
-    document.addEventListener("keydown", event => {
-      if (event.key === "ArrowLeft" && dx === 0) {
-        dx = -box; dy = 0;
-      } else if (event.key === "ArrowUp" && dy === 0) {
-        dx = 0; dy = -box;
-      } else if (event.key === "ArrowRight" && dx === 0) {
-        dx = box; dy = 0;
-      } else if (event.key === "ArrowDown" && dy === 0) {
-        dx = 0; dy = box;
-      }
+function iterate(){
+  // 1. 重新分配标签
+  points.forEach((p,i)=>{
+    let best=0,dmin=Infinity;
+    centers.forEach((c,ci)=>{
+      const d=(p.x-c.x)**2+(p.y-c.y)**2;
+      if(d<dmin){dmin=d;best=ci;}
     });
+    labels[i]=best;
+  });
+  // 2. 更新质心
+  centers.forEach((c,ci)=>{
+    const cluster=points.filter((_,i)=>labels[i]===ci);
+    if(cluster.length){
+      c.x=cluster.reduce((s,p)=>s+p.x,0)/cluster.length;
+      c.y=cluster.reduce((s,p)=>s+p.y,0)/cluster.length;
+    }
+  });
+  iter++;updateChart();
+}
 
-    // 按钮绑定
-    document.getElementById("startBtn").addEventListener("click", startGame);
-    document.getElementById("stopBtn").addEventListener("click", stopGame);
-    document.getElementById("restartBtn").addEventListener("click", restartGame);
-  </script>
+function updateChart(){
+  const colors=['#ff6384','#36a2eb','#ffcd56'];
+  const datasets=[
+    ...centers.map((c,i)=>({label:`C${i+1}`,data:[c],pointStyle:'triangle',backgroundColor:colors[i],radius:10})),
+    ...points.map((p,i)=>({data:[p],backgroundColor:colors[labels[i]],radius:5,showLine:false}))
+  ];
+  chart.data.datasets=datasets;
+  chart.update();
+}
+</script>
 </body>
 </html>
 </div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">小关</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">5</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">8</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/XiaoGuan-AI"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">欢迎来到我的博客！</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2025/05/13/SmartCrib/" title="智能婴儿床控制系统"><img src="/2025/05/13/SmartCrib/1.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="智能婴儿床控制系统"/></a><div class="content"><a class="title" href="/2025/05/13/SmartCrib/" title="智能婴儿床控制系统">智能婴儿床控制系统</a><time datetime="2025-05-13T08:25:33.000Z" title="发表于 2025-05-13 16:25:33">2025-05-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/05/13/SmartTrashCan/" title="智能垃圾桶"><img src="/2025/05/13/SmartTrashCan/1.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="智能垃圾桶"/></a><div class="content"><a class="title" href="/2025/05/13/SmartTrashCan/" title="智能垃圾桶">智能垃圾桶</a><time datetime="2025-05-13T07:24:38.000Z" title="发表于 2025-05-13 15:24:38">2025-05-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/05/13/HorseRaceLamp/" title="跑马灯"><img src="/2025/05/13/HorseRaceLamp/1.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="跑马灯"/></a><div class="content"><a class="title" href="/2025/05/13/HorseRaceLamp/" title="跑马灯">跑马灯</a><time datetime="2025-05-13T05:56:07.000Z" title="发表于 2025-05-13 13:56:07">2025-05-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/05/08/WiFi-Remote-Intercom/" title="WiFi 远程对讲机"><img src="/2025/05/08/WiFi-Remote-Intercom/1.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="WiFi 远程对讲机"/></a><div class="content"><a class="title" href="/2025/05/08/WiFi-Remote-Intercom/" title="WiFi 远程对讲机">WiFi 远程对讲机</a><time datetime="2025-05-08T06:07:14.000Z" title="发表于 2025-05-08 14:07:14">2025-05-08</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/04/30/HomemadeHumidifier/" title="自制加湿器"><img src="/2025/04/30/HomemadeHumidifier/1.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="自制加湿器"/></a><div class="content"><a class="title" href="/2025/04/30/HomemadeHumidifier/" title="自制加湿器">自制加湿器</a><time datetime="2025-04-30T08:58:15.000Z" title="发表于 2025-04-30 16:58:15">2025-04-30</time></div></div></div></div><div class="card-widget card-categories"><div class="item-headline">
