@@ -1,4 +1,4 @@
-var home_Path = document.location.protocol +'//' + window.document.location.hostname +'/';
+
 
 var userAgent = window.navigator.userAgent.toLowerCase();
 console.log(userAgent);
@@ -48,19 +48,29 @@ if(!norunFlag){
 		};
 		
 		var re = /x/;
+		console.log(re);
 		re.toString = function() {
 			showMessage('哈哈，你打开了控制台，是想要看看我的秘密吗？', 5000);
+			talkValTimer();
 			return '';
 		};
 		
 		$(document).on('copy', function (){
 			showMessage('你都复制了些什么呀，转载要记得加上出处哦~~', 5000);
+			talkValTimer();
 		});
 		
 		function initTips(){
+			var msgType = 'message.json';
+			if(live2d_type == 0){
+				msgType = 'message.json';
+			}
+			else if(live2d_type == 1){
+				msgType = 'message_rem.json';
+			}
 			$.ajax({
 				cache: true,
-				url: message_Path+'message.json',
+				url: message_Path+msgType,
 				dataType: "json",
 				success: function (result){
 					$.each(result.mouseover, function (index, tips){
@@ -121,6 +131,8 @@ if(!norunFlag){
 				text = '嗨！ 来自 360搜索 的朋友！<br>欢迎访问<span style="color:#0099cc;">「 ' + document.title.split(' - ')[0] + ' 」</span>';
 			}else if (domain == 'google') {
 				text = '嗨！ 来自 谷歌搜索 的朋友！<br>欢迎访问<span style="color:#0099cc;">「 ' + document.title.split(' - ')[0] + ' 」</span>';
+			}else if(document.referrer.indexOf(home_Path) !== -1){
+				text = '嗨！ 你好呀！';
 			}
 		}else {
 			if (window.location.href == home_Path) { //主页URL判断，需要斜杠结尾
@@ -158,10 +170,21 @@ if(!norunFlag){
 	function showHitokoto(){
 		if(sessionStorage.getItem("Sleepy")!=="1"){
 			if(!AITalkFlag){
-				$.getJSON('https://sslapi.hitokoto.cn/',function(result){
-					talkValTimer();
-					showMessage(result.hitokoto, 0);
-				});
+				var talkContent = [];
+				var live2d_weiyu_cache = $('.live2d_weiyu_cache');
+				for(var i=0;i<live2d_weiyu_cache.length;i++){
+					talkContent.push(live2d_weiyu_cache.eq(i).text());
+				}
+				var num = talkNum;
+				showMessage(talkContent[num], 15000);
+				talkNum++;
+				if(talkNum>live2d_weiyu_cache.length){
+					talkNum=0;
+				}
+				talkValTimer();
+				//$.getJSON('https://sslapi.hitokoto.cn/',function(result){
+					//console.log(result)
+				//});
 			}
 		}else{
 			hideMessage(0);
@@ -230,87 +253,65 @@ if(!norunFlag){
 				},300);
 			}
 		});
-		$('#youduButton').on('click',function(){
-			if($('#youduButton').hasClass('doudong')){
-				var typeIs = $('#youduButton').attr('data-type');
-				$('#youduButton').removeClass('doudong');
-				$('body').removeClass(typeIs);
-				$('#youduButton').attr('data-type','');
+		$('#showInfoBtn').on('click',function(){
+			var live_statu = $('#live_statu_val').val();
+			if(live_statu=="0"){
+				return
 			}else{
-				var duType = $('#duType').val();
-				var duArr = duType.split(",");
-				var dataType = duArr[Math.floor(Math.random() * duArr.length)];
-
-				$('#youduButton').addClass('doudong');
-				$('#youduButton').attr('data-type',dataType);
-				$('body').addClass(dataType);
+				$('#live_statu_val').val("0");
+				$('.live_talk_input_body').fadeOut(500);
+				AITalkFlag = false;
+				showHitokoto();
+				$('#showTalkBtn').show();
+				$('#showInfoBtn').hide();
 			}
 		});
-		if(talkAPI!==""){
-			$('#showInfoBtn').on('click',function(){
-				var live_statu = $('#live_statu_val').val();
-				if(live_statu=="0"){
-					return
-				}else{
-					$('#live_statu_val').val("0");
-					$('.live_talk_input_body').fadeOut(500);
-					AITalkFlag = false;
-					showHitokoto();
-					$('#showTalkBtn').show();
-					$('#showInfoBtn').hide();
-				}
-			});
-			$('#showTalkBtn').on('click',function(){
-				var live_statu = $('#live_statu_val').val();
-				if(live_statu=="1"){
-					return
-				}else{
-					$('#live_statu_val').val("1");
-					$('.live_talk_input_body').fadeIn(500);
-					AITalkFlag = true;
-					$('#showTalkBtn').hide();
-					$('#showInfoBtn').show();
-					
-				}
-			});
-			$('#talk_send').on('click',function(){
-				var info_ = $('#AIuserText').val();
-				var userid_ = $('#AIuserName').val();
-				if(info_ == "" ){
-					showMessage('写点什么吧！',0);
-					return;
-				}
-				if(userid_ == ""){
-					showMessage('聊之前请告诉我你的名字吧！',0);
-					return;
-				}
-				showMessage('思考中~', 0);
-				$.ajax({
-					type: 'POST',
-					url: talkAPI,
-					data: {
-						"info":info_,
-						"userid":userid_
-					},
-					success: function(res) {
-						if(res.code !== 100000){
-							talkValTimer();
-							showMessage('似乎有什么错误，请和站长联系！',0);
-						}else{
-							talkValTimer();
-							showMessage(res.text,0);
-						}
-						console.log(res);
-						$('#AIuserText').val("");
-						sessionStorage.setItem("live2duser", userid_);
+		$('#showTalkBtn').on('click',function(){
+			var live_statu = $('#live_statu_val').val();
+			if(live_statu=="1"){
+				return
+			}else{
+				$('#live_statu_val').val("1");
+				$('.live_talk_input_body').fadeIn(500);
+				AITalkFlag = true;
+				$('#showTalkBtn').hide();
+				$('#showInfoBtn').show();
+				
+			}
+		});
+		$('#talk_send').on('click',function(){
+			var info_ = $('#AIuserText').val();
+			var userid_ = $('#AIuserName').val();
+			if(info_ == "" ){
+				showMessage('写点什么吧！',0);
+				return;
+			}
+			if(userid_ == ""){
+				showMessage('聊之前请告诉我你的名字吧！',0);
+				return;
+			}
+			showMessage('思考中~', 0);
+			$.ajax({
+				type: 'POST',
+				url:  home_Path+'index.php/Live2dHistoire',
+				data: {
+					"info":info_,
+					"userid":userid_
+				},
+				success: function(res) {
+					if(res.code !== 100000){
+						talkValTimer();
+						showMessage('似乎有什么错误，请和站长联系！',0);
+					}else{
+						talkValTimer();
+						showMessage(res.text,0);
 					}
-				});
+					console.log(res);
+					$('#AIuserText').val("");
+					sessionStorage.setItem("live2duser", userid_);
+				}
 			});
-		}else{
-			$('#showInfoBtn').hide();
-			$('#showTalkBtn').hide();
-			
-		}
+		});
 		//获取音乐信息初始化
 		var bgmListInfo = $('input[name=live2dBGM]');
 		if(bgmListInfo.length == 0){
@@ -338,6 +339,8 @@ if(!norunFlag){
 			if(live2dBGM_IsPlay == '0' && live2dBGM_WindowClose == '0'){
 				$('#live2d_bgm')[0].play();
 				$('#musicButton').addClass('play');
+			}else{
+				sessionStorage.setItem("live2dBGM_IsPlay",'1');
 			}
 			sessionStorage.setItem("live2dBGM_WindowClose" , '1');
 			$('#musicButton').on('click',function(){
@@ -445,12 +448,18 @@ if(!norunFlag){
 		};
 	}
 	$(document).ready(function() {
-		var AIimgSrc = [
-			home_Path + message_Path + "model/histoire/histoire.1024/texture_00.png",
-			home_Path + message_Path + "model/histoire/histoire.1024/texture_01.png",
-			home_Path + message_Path + "model/histoire/histoire.1024/texture_02.png",
-			home_Path + message_Path + "model/histoire/histoire.1024/texture_03.png"
-		]
+		if(live2d_type == 0){
+			var AIimgSrc = [
+				message_Path+"model/histoire/histoire.1024/texture_00.png",
+				message_Path+"model/histoire/histoire.1024/texture_01.png",
+				message_Path+"model/histoire/histoire.1024/texture_02.png",
+				message_Path+"model/histoire/histoire.1024/texture_03.png"
+			];
+		}else if(live2d_type == 1){
+			var AIimgSrc = [
+				message_Path+"model/rem/remu2048/texture_00.png"
+			];
+		}
 		var images = [];
 		var imgLength = AIimgSrc.length;
 		var loadingNum = 0;
@@ -471,7 +480,11 @@ if(!norunFlag){
 						},1300);
 					}
 					setTimeout(function(){
-						loadlive2d("live2d", message_Path+"model/histoire/model.json");
+						if(live2d_type == 0){
+							loadlive2d("live2d",  message_Path+"/model/histoire/model.json");
+						}else if(live2d_type == 1){
+							loadlive2d("live2d",  message_Path+"/model/rem/rem.json");
+						}
 					},1000);
 					initLive2d ();
 					images = null;
