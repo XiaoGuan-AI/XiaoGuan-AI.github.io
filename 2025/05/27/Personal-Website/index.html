@@ -272,10 +272,11 @@ var talkAPI = "https://open.bigmodel.cn/api/paas/v4/chat/completions";  //可替
 initLive2d();
 </script><script>document.addEventListener("DOMContentLoaded", function () {
   var musicList = [
+    "/live2d/bgm/TurningPain.mp3",
     "/live2d/bgm/Undersea.mp3",
     "/live2d/bgm/Bias.mp3",
     "/live2d/bgm/NoLongerHesitate.mp3",
-    "/live2d/bgm/TurningPain.mp3",
+
     "/live2d/bgm/Drowning.mp3",
     "/live2d/bgm/MelancholyBeauty.mp3",
     "/live2d/bgm/BesideYou.mp3"
@@ -283,69 +284,31 @@ initLive2d();
 
   var bgm = document.getElementById("live2d_bgm");
   var musicBtn = document.getElementById("musicButton");
+  var currentTrack = 0;
 
-  var currentTrack = parseInt(localStorage.getItem("live2d_currentTrack") || "0", 10);
-  var currentTime = parseFloat(localStorage.getItem("live2d_currentTime") || "0");
-  var wasPlaying = localStorage.getItem("live2d_isPlaying") === "true";
+  if (!bgm || !musicBtn) return;
 
-  // ✅ 初始化播放器
-  if (bgm) {
+  bgm.src = musicList[currentTrack];
+  bgm.load();
+
+  // 当一首歌播放完，播放下一首
+  bgm.addEventListener("ended", function () {
+    currentTrack = (currentTrack + 1) % musicList.length;
     bgm.src = musicList[currentTrack];
-    bgm.load();
+    bgm.play();
+  });
 
-    bgm.addEventListener("canplay", function () {
-      bgm.currentTime = currentTime || 0;
-      if (wasPlaying) {
-        bgm.play().then(() => {
-          musicBtn && musicBtn.classList.add("playing");
-        }).catch(() => {
-          // 提示用户手动恢复
-          setTimeout(() => {
-            alert("进入新页面，音乐似乎被打断播放了，再点击一下音乐按钮续播音乐！");
-          }, 1000);
-        });
-      }
-    });
-
-    // 播放结束自动播放下一首
-    bgm.addEventListener("ended", function () {
-      currentTrack = (currentTrack + 1) % musicList.length;
-      localStorage.setItem("live2d_currentTrack", currentTrack);
-      localStorage.setItem("live2d_currentTime", "0");
-      bgm.src = musicList[currentTrack];
-      bgm.load();
+  // 播放/暂停按钮逻辑
+  musicBtn.addEventListener("click", function () {
+    if (bgm.paused) {
       bgm.play();
-    });
-
-    // 实时保存播放进度
-    bgm.addEventListener("timeupdate", function () {
-      if (!bgm.paused) {
-        localStorage.setItem("live2d_currentTime", bgm.currentTime);
-      }
-    });
-  }
-
-  // ✅ 控制按钮：播放 / 暂停
-  if (musicBtn) {
-    musicBtn.addEventListener("click", function () {
-      if (bgm.paused) {
-        bgm.play().then(() => {
-          localStorage.setItem("live2d_isPlaying", "true");
-          musicBtn.classList.add("playing");
-        }).catch(err => {
-          console.warn("播放失败：", err);
-        });
-      } else {
-        bgm.pause();
-        localStorage.setItem("live2d_isPlaying", "false");
-        musicBtn.classList.remove("playing");
-      }
-    });
-  }
+      musicBtn.classList.add("playing");
+    } else {
+      bgm.pause();
+      musicBtn.classList.remove("playing");
+    }
+  });
 });
-
-
-
 
 </script><!-- ✅ 有毒按钮特效script.
   document.addEventListener("DOMContentLoaded", function () {
