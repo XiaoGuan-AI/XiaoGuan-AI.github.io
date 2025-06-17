@@ -250,7 +250,7 @@ var talkAPI = "https://open.bigmodel.cn/api/paas/v4/chat/completions";  //可替
   loadlive2d("live2d", message_Path + "model/histoire/model.json");
 }, 1000);
 initLive2d();
-</script><!-- ✅ 多首音乐循环播放--><script>document.addEventListener("DOMContentLoaded", function () {
+</script><!-- ✅ 多首音乐循环播放--><script>$(function () {
   var musicList = [
     "/live2d/bgm/TurningPain.mp3",
     "/live2d/bgm/Undersea.mp3",
@@ -262,50 +262,46 @@ initLive2d();
   ];
 
   var bgm = document.getElementById("live2d_bgm");
-  var musicBtn = document.getElementById("musicButton");
-  var hiddenInput = document.querySelector('input[name="live2dBGM"]');
+  var musicBtn = $("#musicButton");
+  if (!bgm || musicBtn.length === 0) return;
+
   var currentTrack = 0;
   var isPlaying = false;
 
-  if (!bgm || !musicBtn) return;
-
   function playTrack(index) {
-    var track = musicList[index];
     bgm.src = musicList[index];
     bgm.load();
     bgm.play().then(() => {
       isPlaying = true;
-      musicBtn.classList.add("playing");
+      musicBtn.addClass("playing");
     }).catch(err => {
       console.warn("播放失败:", err);
     });
   }
 
-  // 播放第一首
   playTrack(currentTrack);
 
-  // 当一首歌播放完，播放下一首
   bgm.addEventListener("ended", function () {
     currentTrack = (currentTrack + 1) % musicList.length;
     playTrack(currentTrack);
   });
 
-  // 播放/暂停切换按钮
-  musicBtn.addEventListener("click", function () {
+  musicBtn.on("click", function () {
     if (isPlaying) {
       bgm.pause();
       isPlaying = false;
-      musicBtn.classList.remove("playing");
+      musicBtn.removeClass("playing");
     } else {
       bgm.play().then(() => {
         isPlaying = true;
-        musicBtn.classList.add("playing");
+        musicBtn.addClass("playing");
       }).catch(err => {
         console.warn("播放失败:", err);
       });
     }
   });
 });
+
 
 
 </script><!-- ✅ 有毒按钮特效--><script>document.addEventListener("DOMContentLoaded", function () {
