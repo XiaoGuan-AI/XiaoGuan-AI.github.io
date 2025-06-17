@@ -271,7 +271,6 @@ initLive2d();
     "/live2d/bgm/Undersea.mp3",
     "/live2d/bgm/Bias.mp3",
     "/live2d/bgm/NoLongerHesitate.mp3",
-
     "/live2d/bgm/Drowning.mp3",
     "/live2d/bgm/MelancholyBeauty.mp3",
     "/live2d/bgm/BesideYou.mp3"
@@ -280,30 +279,47 @@ initLive2d();
   var bgm = document.getElementById("live2d_bgm");
   var musicBtn = document.getElementById("musicButton");
   var currentTrack = 0;
+  var isPlaying = false;
 
   if (!bgm || !musicBtn) return;
 
-  bgm.src = musicList[currentTrack];
-  bgm.load();
+  function playTrack(index) {
+    bgm.src = musicList[index];
+    bgm.load();
+    bgm.play().then(() => {
+      isPlaying = true;
+      musicBtn.classList.add("playing");
+    }).catch(err => {
+      console.warn("播放失败:", err);
+    });
+  }
+
+  // 播放第一首
+  playTrack(currentTrack);
 
   // 当一首歌播放完，播放下一首
   bgm.addEventListener("ended", function () {
     currentTrack = (currentTrack + 1) % musicList.length;
-    bgm.src = musicList[currentTrack];
-    bgm.play();
+    playTrack(currentTrack);
   });
 
-  // 播放/暂停按钮逻辑
+  // 播放/暂停切换按钮
   musicBtn.addEventListener("click", function () {
-    if (bgm.paused) {
-      bgm.play();
-      musicBtn.classList.add("playing");
-    } else {
+    if (isPlaying) {
       bgm.pause();
+      isPlaying = false;
       musicBtn.classList.remove("playing");
+    } else {
+      bgm.play().then(() => {
+        isPlaying = true;
+        musicBtn.classList.add("playing");
+      }).catch(err => {
+        console.warn("播放失败:", err);
+      });
     }
   });
 });
+
 
 </script><!-- ✅ 有毒按钮特效--><script>document.addEventListener("DOMContentLoaded", function () {
   $('#youduButton').on('click', function () {
