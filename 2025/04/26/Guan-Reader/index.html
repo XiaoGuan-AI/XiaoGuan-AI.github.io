@@ -282,22 +282,19 @@ initLive2d();
   const bgm = document.getElementById("live2d_bgm");
   const musicBtn = $("#musicButton");
 
-  if (!bgm || musicBtn.length === 0) {
-    console.warn("找不到音乐按钮或 bgm 元素");
-    return;
-  }
-
   let currentTrack = 0;
   let isPlaying = false;
+  let isInitialized = false;
 
-  function playTrack(index) {
-    console.log("尝试播放:", musicList[index]);
-    bgm.src = musicList[index];
+  function playCurrentTrack() {
+    if (!musicList.length) return;
+
+    bgm.src = musicList[currentTrack];
     bgm.load();
     bgm.play().then(() => {
       isPlaying = true;
       musicBtn.addClass("playing");
-      console.log("播放成功");
+      console.log("🎵 播放:", musicList[currentTrack]);
     }).catch(err => {
       console.warn("播放失败:", err);
     });
@@ -305,29 +302,33 @@ initLive2d();
 
   bgm.addEventListener("ended", function () {
     currentTrack = (currentTrack + 1) % musicList.length;
-    playTrack(currentTrack);
+    playCurrentTrack();
   });
 
   musicBtn.on("click", function () {
-    console.log("点击了音乐按钮");
+    if (!isInitialized) {
+      playCurrentTrack();
+      isInitialized = true;
+      return;
+    }
+
     if (isPlaying) {
       bgm.pause();
       isPlaying = false;
       musicBtn.removeClass("playing");
+      console.log("⏸️ 暂停");
     } else {
-      if (!bgm.src || bgm.src === window.location.href) {
-        playTrack(currentTrack);
-      } else {
-        bgm.play().then(() => {
-          isPlaying = true;
-          musicBtn.addClass("playing");
-        }).catch(err => {
-          console.warn("播放失败:", err);
-        });
-      }
+      bgm.play().then(() => {
+        isPlaying = true;
+        musicBtn.addClass("playing");
+        console.log("▶️ 继续播放");
+      }).catch(err => {
+        console.warn("播放失败:", err);
+      });
     }
   });
 });
+
 
 
 
