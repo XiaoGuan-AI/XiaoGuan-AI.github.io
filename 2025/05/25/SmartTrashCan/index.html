@@ -295,6 +295,25 @@ initLive2d();
     }
   });
 });
+</script><!-- ✅ 触发有毒按钮的特效--><script>document.addEventListener("DOMContentLoaded", function () {
+  $('#youduButton').on('click', function () {
+    if ($('#youduButton').hasClass('doudong')) {
+      var typeIs = $('#youduButton').attr('data-type');
+      $('#youduButton').removeClass('doudong');
+      $('body').removeClass(typeIs);
+      $('#youduButton').attr('data-type', '');
+    } else {
+      var duType = $('#duType').val();
+      var duArr = duType.split(",");
+      var dataType = duArr[Math.floor(Math.random() * duArr.length)];
+
+      $('#youduButton').addClass('doudong');
+      $('#youduButton').attr('data-type', dataType);
+      $('body').addClass(dataType);
+    }
+  });
+});
+
 </script><!-- ✅ 插入其他 JS（推荐在最后）--><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"><script>(() => {
   const runMermaid = ele => {
     window.loadMermaid = true
