@@ -285,6 +285,30 @@ if(!norunFlag){
 					return;
 				}
 				showMessage('思考中~', 0);
+
+				$.ajax({
+					type: 'POST',
+					url: 'https://open.bigmodel.cn/api/paas/v4/chat/completions',
+					headers: {
+						'Authorization': 'Bearer 1aa798ee820d75c7a59dc01d3265372e.GZyQHw5XvsgndyED', // ← 替换为你自己的 API Key
+						'Content-Type': 'application/json'
+					},
+					data: JSON.stringify({
+						model: 'glm-4',
+						messages: [
+							{ role: "user", content: info_ }
+						]
+					}),
+					success: function (res) {
+						const reply = res.choices?.[0]?.message?.content || '出错了';
+						showMessage(reply, 0);
+						$('#AIuserText').val("");
+						sessionStorage.setItem("live2duser", userid_);
+					},
+					error: function (err) {
+						showMessage('调用失败，请检查网络或API配置', 0);
+					}
+				});
 		// 		$.ajax({
 		// 			type: 'POST',
 		// 			url: talkAPI,
@@ -312,29 +336,7 @@ if(!norunFlag){
 		//
 		// }
 
-				$.ajax({
-					type: 'POST',
-					url: 'https://open.bigmodel.cn/api/paas/v4/chat/completions',
-					headers: {
-						'Authorization': 'Bearer 1aa798ee820d75c7a59dc01d3265372e.GZyQHw5XvsgndyED', // ← 替换为你自己的 API Key
-						'Content-Type': 'application/json'
-					},
-					data: JSON.stringify({
-						model: 'glm-4',
-						messages: [
-							{ role: "user", content: info_ }
-						]
-					}),
-					success: function (res) {
-						const reply = res.choices?.[0]?.message?.content || '出错了';
-						showMessage(reply, 0);
-						$('#AIuserText').val("");
-						sessionStorage.setItem("live2duser", userid_);
-					},
-					error: function (err) {
-						showMessage('调用失败，请检查网络或API配置', 0);
-					}
-				});
+
 
 
 
