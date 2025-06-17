@@ -110,20 +110,23 @@ if(!norunFlag){
 		initTips();
 	
 		var text;
-		if (document.body.classList.contains('post') || document.body.classList.contains('post-page')) {
-			var postTitle = document.title.split(' - ')[0].trim();
+		var postTitle = document.title.split(' - ')[0].trim();
+		var isArticlePage = location.pathname.startsWith('/posts/') || document.body.classList.contains('post') || document.body.classList.contains('post-page') || document.body.classList.contains('layout-post');
+
+		if (isArticlePage) {
 			text = '欢迎阅读<span style="color:#0099cc;">「 ' + postTitle + ' 」</span>';
 		} else if (document.referrer !== '') {
 			var referrer = document.createElement('a');
 			referrer.href = document.referrer;
-			text = '嗨！来自 <span style="color:#0099cc;">' + referrer.hostname + '</span> 的朋友！';
 			var domain = referrer.hostname.split('.')[1];
-			if (domain == 'baidu') {
-				text = '嗨！ 来自 百度搜索 的朋友！<br>欢迎访问<span style="color:#0099cc;">「 ' + document.title.split(' - ')[0] + ' 」</span>';
-			} else if (domain == 'so') {
-				text = '嗨！ 来自 360搜索 的朋友！<br>欢迎访问<span style="color:#0099cc;">「 ' + document.title.split(' - ')[0] + ' 」</span>';
-			} else if (domain == 'google') {
-				text = '嗨！ 来自 谷歌搜索 的朋友！<br>欢迎访问<span style="color:#0099cc;">「 ' + document.title.split(' - ')[0] + ' 」</span>';
+			if (domain === 'baidu') {
+				text = '嗨！ 来自 百度搜索 的朋友！<br>欢迎访问<span style="color:#0099cc;">「 ' + postTitle + ' 」</span>';
+			} else if (domain === 'so') {
+				text = '嗨！ 来自 360搜索 的朋友！<br>欢迎访问<span style="color:#0099cc;">「 ' + postTitle + ' 」</span>';
+			} else if (domain === 'google') {
+				text = '嗨！ 来自 谷歌搜索 的朋友！<br>欢迎访问<span style="color:#0099cc;">「 ' + postTitle + ' 」</span>';
+			} else {
+				text = '嗨！来自 <span style="color:#0099cc;">' + referrer.hostname + '</span> 的朋友！';
 			}
 		} else if (window.location.href == home_Path) {
 			var now = (new Date()).getHours();
@@ -149,7 +152,9 @@ if(!norunFlag){
 		} else {
 			text = '欢迎来到我的博客，愿你有所收获~';
 		}
+
 		showMessage(text, 12000);
+
 
 	})();
 	
@@ -544,6 +549,7 @@ if(!norunFlag){
 		"不负光阴不负自己，不负被爱不负所爱。",
 		"你一定要站在自己所热爱的领域里，闪闪发光。",
 		"纵有疾风起，人生不言弃。",
+		"你若盛开，蝴蝶自来；你若精彩，天自安排。",
 		"所有的好运都藏在努力里。"
 	  ];
 
