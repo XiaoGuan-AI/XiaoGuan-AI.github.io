@@ -524,3 +524,46 @@ if(!norunFlag){
 		}
 	});
 }
+
+// 欢迎语函数
+function showWelcomeOnArticlePage() {
+  if (document.body.classList.contains('post')) {
+    var postTitle = document.title || '这篇文章';
+    if (postTitle.indexOf('|') !== -1) {
+      postTitle = postTitle.split('|')[0].trim();
+    }
+    showMessage(`欢迎阅读《${postTitle}》~`, 6000, 1);
+  }
+}
+
+// 绑定加载时和 PJAX 完成时触发
+document.addEventListener('DOMContentLoaded', showWelcomeOnArticlePage);
+document.addEventListener('pjax:complete', showWelcomeOnArticlePage);
+
+// 闲置自动推送鸡汤
+(function () {
+  var lastInteraction = Date.now();
+  ['mousemove', 'keydown', 'click', 'scroll'].forEach(function (evt) {
+    document.addEventListener(evt, function () {
+      lastInteraction = Date.now();
+    });
+  });
+
+  var tips = [
+    "愿你走出半生，归来仍是少年。",
+    "保持热爱，奔赴山海。",
+    "星光不问赶路人，时光不负有心人。",
+    "不负光阴不负自己，不负被爱不负所爱。",
+    "你一定要站在自己所热爱的世界里，闪闪发光。",
+    "所有的好运都藏在努力里。"
+  ];
+
+  setInterval(function () {
+    var now = Date.now();
+    if (now - lastInteraction > 5000) {
+      var index = Math.floor(Math.random() * tips.length);
+      showMessage(tips[index], 5000, 0);
+      lastInteraction = now;
+    }
+  }, 5000);
+})();
