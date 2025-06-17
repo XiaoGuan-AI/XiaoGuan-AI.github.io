@@ -111,54 +111,72 @@ if(!norunFlag){
 	
 		var text = '';
 		var postTitle = document.title.split(' - ')[0].trim();
-		var siteDomain = window.location.origin;
 		var currentPath = window.location.pathname;
+		var siteDomain = window.location.origin;
+		var referrer = document.referrer;
 
-		// 判断是否是主页
-		var isHomePage = window.location.href === siteDomain + '/' || currentPath === '/';
-
-		// 判断是否文章页
+		// 判断是否主页
+		var isHomePage = currentPath === '/' || currentPath === '/index.html';
+		
+		// 判断是否文章页（格式如 /2025/05/29/AstrBot/）
 		function isArticlePage() {
 		  const pathPattern = /^\/\d{4}\/\d{2}\/\d{2}\/[^\/]+\/?$/;
-		  const isPathMatch = pathPattern.test(currentPath);
-		  const hasPostClass = document.body.classList.contains('post') ||
-							   document.body.classList.contains('post-page') ||
-							   document.body.classList.contains('layout-post');
-		  return isPathMatch || hasPostClass;
+		  return pathPattern.test(currentPath);
 		}
 
-		// 判断是否是从博客主页点击进入文章页
-		var isFromHome = document.referrer !== '' && document.referrer.startsWith(siteDomain + '/');
+		// 处理来源域名，返回主域名如 baidu.com -> baidu
+		function getMainDomain(hostname) {
+		  var parts = hostname.split('.');
+		  if (parts.length >= 2) {
+			return parts[parts.length - 2];
+		  }
+		  return hostname;
+		}
 
-		if (isArticlePage() && isFromHome) {
-		  text = '欢迎阅读<span style="color:#0099cc;">「 ' + postTitle + ' 」</span>';
-		} else if (isHomePage) {
+		// 获取时间问候语
+		function getTimeGreeting() {
 		  var now = (new Date()).getHours();
 		  if (now > 23 || now <= 5) {
-			  text = '你是夜猫子呀？这么晚还不睡觉，明天起的来嘛？';
+			return '你是夜猫子呀？这么晚还不睡觉，明天起的来嘛？';
 		  } else if (now > 5 && now <= 7) {
-			  text = '早上好！一日之计在于晨，美好的一天就要开始了！';
+			return '早上好！一日之计在于晨，美好的一天就要开始了！';
 		  } else if (now > 7 && now <= 11) {
-			  text = '上午好！工作顺利嘛，不要久坐，多起来走动走动哦！';
+			return '上午好！工作顺利嘛，不要久坐，多起来走动走动哦！';
 		  } else if (now > 11 && now <= 14) {
-			  text = '中午了，工作了一个上午，现在是午餐时间！';
+			return '中午了，工作了一个上午，现在是午餐时间！';
 		  } else if (now > 14 && now <= 17) {
-			  text = '午后很容易犯困呢，今天的运动目标完成了吗？';
+			return '午后很容易犯困呢，今天的运动目标完成了吗？';
 		  } else if (now > 17 && now <= 19) {
-			  text = '傍晚了！窗外夕阳的景色很美丽呢，最美不过夕阳红~~';
+			return '傍晚了！窗外夕阳的景色很美丽呢，最美不过夕阳红~~';
 		  } else if (now > 19 && now <= 21) {
-			  text = '晚上好，今天过得怎么样？';
+			return '晚上好，今天过得怎么样？';
 		  } else if (now > 21 && now <= 23) {
-			  text = '已经这么晚了呀，早点休息吧，晚安~~';
+			return '已经这么晚了呀，早点休息吧，晚安~~';
 		  } else {
-			  text = '嗨~ 快来逗我玩吧！';
+			return '嗨~ 快来逗我玩吧！';
 		  }
+		}
+
+		if (isHomePage) {
+		  // 访问主页，显示时间问候或来源欢迎
+		  if (referrer) {
+			var refA = document.createElement('a');
+			refA.href = referrer;
+			var domain = getMainDomain(refA.hostname);
+			text = '嗨，来自 <span style="color:#0099cc;">' + domain + '</span> 的朋友~';
+		  } else {
+			// 首页无来源，显示时间问候
+			text = getTimeGreeting();
+		  }
+		} else if (isArticlePage()) {
+		  // 文章页显示欢迎阅读标题
+		  text = '欢迎阅读<span style="color:#0099cc;">「' + postTitle + '」</span>';
 		} else {
+		  // 其他页面默认欢迎语
 		  text = '欢迎来到我的博客，愿你有所收获~';
 		}
 
 		showMessage(text, 12000);
-
 
 
 
