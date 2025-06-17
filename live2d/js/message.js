@@ -148,7 +148,7 @@ if(!norunFlag){
 				text = '欢迎阅读<span style="color:#0099cc;">「 ' + document.title.split(' - ')[0] + ' 」</span>';
 			}
 		}
-		showMessage(text, 12000); // 🔴 不再使用这处触发（只在初始加载）
+		// showMessage(text, 12000); // 🔴 不再使用这处触发（只在初始加载）
 	})();
 	
 	liveTlakTimer = setInterval(function(){
