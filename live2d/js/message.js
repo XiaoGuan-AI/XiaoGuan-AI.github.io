@@ -285,32 +285,59 @@ if(!norunFlag){
 					return;
 				}
 				showMessage('思考中~', 0);
+		// 		$.ajax({
+		// 			type: 'POST',
+		// 			url: talkAPI,
+		// 			data: {
+		// 				"info":info_,
+		// 				"userid":userid_
+		// 			},
+		// 			success: function(res) {
+		// 				if(res.code !== 100000){
+		// 					talkValTimer();
+		// 					showMessage('似乎有什么错误，请和站长联系！',0);
+		// 				}else{
+		// 					talkValTimer();
+		// 					showMessage(res.text,0);
+		// 				}
+		// 				console.log(res);
+		// 				$('#AIuserText').val("");
+		// 				sessionStorage.setItem("live2duser", userid_);
+		// 			}
+		// 		});
+		// 	});
+		// }else{
+		// 	$('#showInfoBtn').hide();
+		// 	$('#showTalkBtn').hide();
+		//
+		// }
+
 				$.ajax({
 					type: 'POST',
-					url: talkAPI,
-					data: {
-						"info":info_,
-						"userid":userid_
+					url: 'https://open.bigmodel.cn/api/paas/v4/chat/completions',
+					headers: {
+						'Authorization': 'Bearer 1aa798ee820d75c7a59dc01d3265372e.GZyQHw5XvsgndyED', // ← 替换为你自己的 API Key
+						'Content-Type': 'application/json'
 					},
-					success: function(res) {
-						if(res.code !== 100000){
-							talkValTimer();
-							showMessage('似乎有什么错误，请和站长联系！',0);
-						}else{
-							talkValTimer();
-							showMessage(res.text,0);
-						}
-						console.log(res);
+					data: JSON.stringify({
+						model: 'glm-4',
+						messages: [
+							{ role: "user", content: info_ }
+						]
+					}),
+					success: function (res) {
+						const reply = res.choices?.[0]?.message?.content || '出错了';
+						showMessage(reply, 0);
 						$('#AIuserText').val("");
 						sessionStorage.setItem("live2duser", userid_);
+					},
+					error: function (err) {
+						showMessage('调用失败，请检查网络或API配置', 0);
 					}
 				});
-			});
-		}else{
-			$('#showInfoBtn').hide();
-			$('#showTalkBtn').hide();
-			
-		}
+
+
+
 		//获取音乐信息初始化
 		var bgmListInfo = $('input[name=live2dBGM]');
 		if(bgmListInfo.length == 0){
