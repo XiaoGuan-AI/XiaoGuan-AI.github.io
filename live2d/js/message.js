@@ -111,44 +111,54 @@ if(!norunFlag){
 	
 		var text = '';
 		var postTitle = document.title.split(' - ')[0].trim();
-		var isArticlePage = location.pathname.includes('/posts/') || location.pathname.endsWith('.html');
+		var siteDomain = window.location.origin;
+		var currentPath = window.location.pathname;
 
-		var siteDomain = window.location.origin;  // 如 https://xiaoguan-ai.github.io
+		// 判断是否是主页
+		var isHomePage = window.location.href === siteDomain + '/' || currentPath === '/';
 
-		// 判断是否从本站主页跳转进来的
+		// 判断是否文章页
+		function isArticlePage() {
+		  const pathPattern = /^\/\d{4}\/\d{2}\/\d{2}\/[^\/]+\/?$/;
+		  const isPathMatch = pathPattern.test(currentPath);
+		  const hasPostClass = document.body.classList.contains('post') ||
+							   document.body.classList.contains('post-page') ||
+							   document.body.classList.contains('layout-post');
+		  return isPathMatch || hasPostClass;
+		}
+
+		// 判断是否是从博客主页点击进入文章页
 		var isFromHome = document.referrer !== '' && document.referrer.startsWith(siteDomain + '/');
 
-		// 判断是否首页
-		var isHomePage = window.location.href === siteDomain + '/' || window.location.pathname === '/';
-
-		if (isArticlePage && isFromHome) {
-			text = '欢迎阅读<span style="color:#0099cc;">「 ' + postTitle + ' 」</span>';
+		if (isArticlePage() && isFromHome) {
+		  text = '欢迎阅读<span style="color:#0099cc;">「 ' + postTitle + ' 」</span>';
 		} else if (isHomePage) {
-			var now = (new Date()).getHours();
-			if (now > 23 || now <= 5) {
-				text = '你是夜猫子呀？这么晚还不睡觉，明天起的来嘛？';
-			} else if (now > 5 && now <= 7) {
-				text = '早上好！一日之计在于晨，美好的一天就要开始了！';
-			} else if (now > 7 && now <= 11) {
-				text = '上午好！工作顺利嘛，不要久坐，多起来走动走动哦！';
-			} else if (now > 11 && now <= 14) {
-				text = '中午了，工作了一个上午，现在是午餐时间！';
-			} else if (now > 14 && now <= 17) {
-				text = '午后很容易犯困呢，今天的运动目标完成了吗？';
-			} else if (now > 17 && now <= 19) {
-				text = '傍晚了！窗外夕阳的景色很美丽呢，最美不过夕阳红~~';
-			} else if (now > 19 && now <= 21) {
-				text = '晚上好，今天过得怎么样？';
-			} else if (now > 21 && now <= 23) {
-				text = '已经这么晚了呀，早点休息吧，晚安~~';
-			} else {
-				text = '嗨~ 快来逗我玩吧！';
-			}
+		  var now = (new Date()).getHours();
+		  if (now > 23 || now <= 5) {
+			  text = '你是夜猫子呀？这么晚还不睡觉，明天起的来嘛？';
+		  } else if (now > 5 && now <= 7) {
+			  text = '早上好！一日之计在于晨，美好的一天就要开始了！';
+		  } else if (now > 7 && now <= 11) {
+			  text = '上午好！工作顺利嘛，不要久坐，多起来走动走动哦！';
+		  } else if (now > 11 && now <= 14) {
+			  text = '中午了，工作了一个上午，现在是午餐时间！';
+		  } else if (now > 14 && now <= 17) {
+			  text = '午后很容易犯困呢，今天的运动目标完成了吗？';
+		  } else if (now > 17 && now <= 19) {
+			  text = '傍晚了！窗外夕阳的景色很美丽呢，最美不过夕阳红~~';
+		  } else if (now > 19 && now <= 21) {
+			  text = '晚上好，今天过得怎么样？';
+		  } else if (now > 21 && now <= 23) {
+			  text = '已经这么晚了呀，早点休息吧，晚安~~';
+		  } else {
+			  text = '嗨~ 快来逗我玩吧！';
+		  }
 		} else {
-			text = '欢迎来到我的博客，愿你有所收获~';
+		  text = '欢迎来到我的博客，愿你有所收获~';
 		}
 
 		showMessage(text, 12000);
+
 
 
 
@@ -549,6 +559,7 @@ if(!norunFlag){
 			"生活就像海洋，只有意志坚强的人，才能到达彼岸。",
 			"愿你有盔甲也有软肋，善良得有原则，感性得有底线。",
 			"只要心是晴朗的，人生就没有雨天。",
+			"你现在的努力，是幸运的伏笔；当下的坚持，是未来的花开。",
 			"所有的好运都藏在努力里。"
 	  ];
 
