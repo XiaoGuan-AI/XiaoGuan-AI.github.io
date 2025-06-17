@@ -286,7 +286,7 @@ if(!norunFlag){
 				}
 				showMessage('思考中~', 0);
 
-						$.ajax({
+				$.ajax({
 							type: 'POST',
 							url: 'https://open.bigmodel.cn/api/paas/v4/chat/completions',
 							headers: {
