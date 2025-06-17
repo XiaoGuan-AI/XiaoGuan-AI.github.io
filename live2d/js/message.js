@@ -234,73 +234,87 @@ if(!norunFlag){
 		$('.message').delay(timeout).fadeTo(200, 0);
 	}
 	
-	function initLive2d() {
-		$('#hideButton').on('click', function () {
-			if (AIFadeFlag) return false;
-			AIFadeFlag = true;
-			localStorage.setItem("live2dhidden", "0");
-			$('#landlord').fadeOut(200);
-			$('#open_live2d').delay(200).fadeIn(200);
-			setTimeout(() => AIFadeFlag = false, 300);
+	function initLive2d (){
+		$('#hideButton').on('click', function(){
+			if(AIFadeFlag){
+				return false;
+			}else{
+				AIFadeFlag = true;
+				localStorage.setItem("live2dhidden", "0");
+				$('#landlord').fadeOut(200);
+				$('#open_live2d').delay(200).fadeIn(200);
+				setTimeout(function(){
+					AIFadeFlag = false;
+				},300);
+			}
 		});
-
-		$('#open_live2d').on('click', function () {
-			if (AIFadeFlag) return false;
-			AIFadeFlag = true;
-			localStorage.setItem("live2dhidden", "1");
-			$('#open_live2d').fadeOut(200);
-			$('#landlord').delay(200).fadeIn(200);
-			setTimeout(() => AIFadeFlag = false, 300);
+		$('#open_live2d').on('click', function(){
+			if(AIFadeFlag){
+				return false;
+			}else{
+				AIFadeFlag = true;
+				localStorage.setItem("live2dhidden", "1");
+				$('#open_live2d').fadeOut(200);
+				$('#landlord').delay(200).fadeIn(200);
+				setTimeout(function(){
+					AIFadeFlag = false;
+				},300);
+			}
 		});
-
-		$('#youduButton').on('click', function () {
-			if ($(this).hasClass('doudong')) {
-				let typeIs = $(this).attr('data-type');
-				$(this).removeClass('doudong');
+		$('#youduButton').on('click',function(){
+			if($('#youduButton').hasClass('doudong')){
+				var typeIs = $('#youduButton').attr('data-type');
+				$('#youduButton').removeClass('doudong');
 				$('body').removeClass(typeIs);
-				$(this).attr('data-type', '');
-			} else {
-				let duArr = $('#duType').val().split(",");
-				let dataType = duArr[Math.floor(Math.random() * duArr.length)];
-				$(this).addClass('doudong').attr('data-type', dataType);
+				$('#youduButton').attr('data-type','');
+			}else{
+				var duType = $('#duType').val();
+				var duArr = duType.split(",");
+				var dataType = duArr[Math.floor(Math.random() * duArr.length)];
+
+				$('#youduButton').addClass('doudong');
+				$('#youduButton').attr('data-type',dataType);
 				$('body').addClass(dataType);
 			}
 		});
-
-		if (talkAPI !== "") {
-			$('#showInfoBtn').on('click', function () {
-				if ($('#live_statu_val').val() === "0") return;
-				$('#live_statu_val').val("0");
-				$('.live_talk_input_body').fadeOut(500);
-				AITalkFlag = false;
-				showHitokoto();
-				$('#showTalkBtn').show();
-				$('#showInfoBtn').hide();
+		if(talkAPI!==""){
+			$('#showInfoBtn').on('click',function(){
+				var live_statu = $('#live_statu_val').val();
+				if(live_statu=="0"){
+					return
+				}else{
+					$('#live_statu_val').val("0");
+					$('.live_talk_input_body').fadeOut(500);
+					AITalkFlag = false;
+					showHitokoto();
+					$('#showTalkBtn').show();
+					$('#showInfoBtn').hide();
+				}
 			});
+			$('#showTalkBtn').on('click',function(){
+				var live_statu = $('#live_statu_val').val();
+				if(live_statu=="1"){
+					return
+				}else{
+					$('#live_statu_val').val("1");
+					$('.live_talk_input_body').fadeIn(500);
+					AITalkFlag = true;
+					$('#showTalkBtn').hide();
+					$('#showInfoBtn').show();
 
-			$('#showTalkBtn').on('click', function () {
-				if ($('#live_statu_val').val() === "1") return;
-				$('#live_statu_val').val("1");
-				$('.live_talk_input_body').fadeIn(500);
-				AITalkFlag = true;
-				$('#showTalkBtn').hide();
-				$('#showInfoBtn').show();
-				$('#AIuserText').focus();  // 自动聚焦输入框
+				}
 			});
-
-			$('#talk_send').on('click', function () {
-				const info_ = $('#AIuserText').val().trim();
-				const userid_ = $('#AIuserName').val().trim();
-
-				if (info_ === "") {
-					showMessage('写点什么吧！', 0);
+			$('#talk_send').on('click',function(){
+				var info_ = $('#AIuserText').val();
+				var userid_ = $('#AIuserName').val();
+				if(info_ == "" ){
+					showMessage('写点什么吧！',0);
 					return;
 				}
-				if (userid_ === "") {
-					showMessage('聊之前请告诉我你的名字吧！', 0);
+				if(userid_ == ""){
+					showMessage('聊之前请告诉我你的名字吧！',0);
 					return;
 				}
-
 				showMessage('思考中~', 0);
 
 				$.ajax({
@@ -308,7 +322,7 @@ if(!norunFlag){
 					url: 'https://open.bigmodel.cn/api/paas/v4/chat/completions',
 					headers: {
 						'Content-Type': 'application/json',
-						'Authorization': 'Bearer 1aa798ee820d75c7a59dc01d3265372e.GZyQHw5XvsgndyED' // ⚠️ 建议迁移到后端
+						'Authorization': 'Bearer 1aa798ee820d75c7a59dc01d3265372e.GZyQHw5XvsgndyED' // 替换为你自己的API Key
 					},
 					data: JSON.stringify({
 						model: "glm-4",
@@ -319,7 +333,7 @@ if(!norunFlag){
 							}
 						]
 					}),
-					success: function (res) {
+					success: function(res) {
 						talkValTimer();
 						if (res.choices && res.choices.length > 0) {
 							const reply = res.choices[0].message.content;
@@ -331,19 +345,17 @@ if(!norunFlag){
 						$('#AIuserText').val("");
 						sessionStorage.setItem("live2duser", userid_);
 					},
-					error: function (xhr) {
+					error: function(xhr) {
 						talkValTimer();
 						showMessage('请求失败，请检查网络或联系站长。', 0);
 						console.error(xhr);
 					}
 				});
 			});
-		} else {
+		}else{
 			$('#showInfoBtn').hide();
 			$('#showTalkBtn').hide();
 		}
-	}
-
 
 
 
