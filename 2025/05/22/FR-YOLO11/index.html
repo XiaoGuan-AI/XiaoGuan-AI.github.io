@@ -384,6 +384,25 @@ var talkAPI = "https://open.bigmodel.cn/api/paas/v4/chat/completions";  //如果
   loadlive2d("live2d", message_Path + "model/histoire/model.json");
 }, 1000);
 initLive2d();
+</script><!-- ✅ 音乐按钮点击播放功能--><script>document.addEventListener("DOMContentLoaded", function () {
+  var musicBtn = document.getElementById("musicButton");
+  var bgm = document.getElementById("live2d_bgm");
+  var bgmSrcInput = document.querySelector("input[name='live2dBGM']");
+
+  if (bgmSrcInput && bgm) {
+    bgm.src = bgmSrcInput.value;
+  }
+
+  musicBtn.addEventListener("click", function () {
+    if (bgm.paused) {
+      bgm.play().catch(function (err) {
+        console.warn("播放失败：", err);
+      });
+    } else {
+      bgm.pause();
+    }
+  });
+});
 </script><!-- ✅ 插入其他 JS（推荐在最后）--><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"><script>(() => {
   const runMermaid = ele => {
     window.loadMermaid = true
