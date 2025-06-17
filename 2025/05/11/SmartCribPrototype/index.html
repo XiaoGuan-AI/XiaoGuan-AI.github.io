@@ -280,7 +280,7 @@ var talkAPI = "https://open.bigmodel.cn/api/paas/v4/chat/completions";  //可替
   loadlive2d("live2d", message_Path + "model/histoire/model.json");
 }, 1000);
 initLive2d();
-</script><!-- ✅ 多首音乐循环播放--><script>document.addEventListener("DOMContentLoaded", function () {
+</script><!-- ✅ 多首音乐循环播放修复（播放下一首需等待加载完成再 play）--><script>document.addEventListener("DOMContentLoaded", function () {
   const bgm = document.getElementById('live2d_bgm');
   const musicBtn = document.getElementById('musicButton');
   const musicInputs = document.querySelectorAll('input[name=live2dBGM]');
@@ -295,10 +295,17 @@ initLive2d();
   let isPlayingStored = sessionStorage.getItem("live2dBGM_IsPlay") === '0';
   let isWindowClose = sessionStorage.getItem("live2dBGM_WindowClose") === '0';
 
-  const setSource = (index) => {
+  const setSource = (index, resume = false) => {
     const src = musicInputs[index].value;
     bgm.src = src;
     bgm.setAttribute('data-bgm', index);
+    if (resume) {
+      bgm.addEventListener('loadedmetadata', function onceLoaded() {
+        bgm.removeEventListener('loadedmetadata', onceLoaded);
+        bgm.play().catch(() => {
+        });
+      });
+    }
   };
 
   setSource(currentIndex);
@@ -306,8 +313,13 @@ initLive2d();
   bgm.volume = 0.5;
 
   if (isPlayingStored && isWindowClose) {
-    bgm.play();
-    musicBtn.classList.add('play');
+    bgm.addEventListener('loadedmetadata', function onceLoaded() {
+      bgm.removeEventListener('loadedmetadata', onceLoaded);
+      bgm.currentTime = currentTime;
+      bgm.play().catch(() => {
+      });
+      musicBtn.classList.add('play');
+    });
   }
 
   musicBtn.addEventListener('click', () => {
@@ -316,102 +328,41 @@ initLive2d();
       musicBtn.classList.remove('play');
       sessionStorage.setItem("live2dBGM_IsPlay", '1');
     } else {
-      bgm.play();
+      bgm.play().catch(() => {
+      });
       musicBtn.classList.add('play');
       sessionStorage.setItem("live2dBGM_IsPlay", '0');
     }
   });
 
-  // ✅ 多首音乐循环播放修复（播放下一首需等待加载完成再 play）
-  script.
-    document.addEventListener("DOMContentLoaded", function () {
-      const bgm = document.getElementById('live2d_bgm');
-      const musicBtn = document.getElementById('musicButton');
-      const musicInputs = document.querySelectorAll('input[name=live2dBGM]');
+  bgm.addEventListener("ended", () => {
+    currentIndex = (currentIndex + 1) % musicInputs.length;
+    sessionStorage.setItem("live2dBGM_Num", currentIndex);
+    setSource(currentIndex, true);
+  });
 
-      if (musicInputs.length === 0) {
-        musicBtn.style.display = 'none';
-        return;
-      }
+  bgm.addEventListener("timeupdate", () => {
+    sessionStorage.setItem("live2dBGM_PlayTime", bgm.currentTime.toString());
+  });
 
-      let currentIndex = parseInt(sessionStorage.getItem("live2dBGM_Num")) || 0;
-      let currentTime = parseFloat(sessionStorage.getItem("live2dBGM_PlayTime")) || 0;
-      let isPlayingStored = sessionStorage.getItem("live2dBGM_IsPlay") === '0';
-      let isWindowClose = sessionStorage.getItem("live2dBGM_WindowClose") === '0';
+  bgm.addEventListener("error", () => {
+    bgm.pause();
+    musicBtn.classList.remove('play');
+    if (typeof showMessage === 'function') {
+      showMessage('音乐似乎加载不出来了呢！', 0);
+    } else {
+      alert("音乐加载失败！");
+    }
+  });
 
-      const setSource = (index, resume = false) => {
-        const src = musicInputs[index].value;
-        bgm.src = src;
-        bgm.setAttribute('data-bgm', index);
-        if (resume) {
-          bgm.addEventListener('loadedmetadata', function onceLoaded() {
-            bgm.removeEventListener('loadedmetadata', onceLoaded);
-            bgm.play().catch(() => {
-            });
-          });
-        }
-      };
+  window.addEventListener("beforeunload", () => {
+    sessionStorage.setItem("live2dBGM_WindowClose", '0');
+    const isPlaying = musicBtn.classList.contains('play') ? '0' : '1';
+    sessionStorage.setItem("live2dBGM_IsPlay", isPlaying);
+  });
 
-      setSource(currentIndex);
-      bgm.currentTime = currentTime;
-      bgm.volume = 0.5;
-
-      if (isPlayingStored && isWindowClose) {
-        bgm.addEventListener('loadedmetadata', function onceLoaded() {
-          bgm.removeEventListener('loadedmetadata', onceLoaded);
-          bgm.currentTime = currentTime;
-          bgm.play().catch(() => {
-          });
-          musicBtn.classList.add('play');
-        });
-      }
-
-      musicBtn.addEventListener('click', () => {
-        if (musicBtn.classList.contains('play')) {
-          bgm.pause();
-          musicBtn.classList.remove('play');
-          sessionStorage.setItem("live2dBGM_IsPlay", '1');
-        } else {
-          bgm.play().catch(() => {
-          });
-          musicBtn.classList.add('play');
-          sessionStorage.setItem("live2dBGM_IsPlay", '0');
-        }
-      });
-
-      bgm.addEventListener("ended", () => {
-        currentIndex = (currentIndex + 1) % musicInputs.length;
-        sessionStorage.setItem("live2dBGM_Num", currentIndex);
-        setSource(currentIndex, true);
-      });
-
-      bgm.addEventListener("timeupdate", () => {
-        sessionStorage.setItem("live2dBGM_PlayTime", bgm.currentTime.toString());
-      });
-
-      bgm.addEventListener("error", () => {
-        bgm.pause();
-        musicBtn.classList.remove('play');
-        if (typeof showMessage === 'function') {
-          showMessage('音乐似乎加载不出来了呢！', 0);
-        } else {
-          alert("音乐加载失败！");
-        }
-      });
-
-      window.addEventListener("beforeunload", () => {
-        sessionStorage.setItem("live2dBGM_WindowClose", '0');
-        const isPlaying = musicBtn.classList.contains('play') ? '0' : '1';
-        sessionStorage.setItem("live2dBGM_IsPlay", isPlaying);
-      });
-
-      sessionStorage.setItem("live2dBGM_WindowClose", '1');
-    });
-
-
-
-
-
+  sessionStorage.setItem("live2dBGM_WindowClose", '1');
+});
 
 
 </script><!-- ✅ 有毒按钮特效--><script>document.addEventListener("DOMContentLoaded", function () {
