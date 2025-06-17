@@ -287,44 +287,45 @@ if(!norunFlag){
 				showMessage('思考中~', 0);
 
 				$.ajax({
-							type: 'POST',
-							url: 'https://open.bigmodel.cn/api/paas/v4/chat/completions',
-							headers: {
-								'Content-Type': 'application/json',
-								'Authorization': 'Bearer 1aa798ee820d75c7a59dc01d3265372e.GZyQHw5XvsgndyED' // 替换为你自己的API Key
-							},
-							data: JSON.stringify({
-								model: "glm-4",
-								messages: [
-									{
-										role: "user",
-										content: info_
-									}
-								]
-							}),
-							success: function(res) {
-								talkValTimer();
-								if (res.choices && res.choices.length > 0) {
-									const reply = res.choices[0].message.content;
-									showMessage(reply, 0);
-								} else {
-									showMessage('智普返回内容为空，请稍后再试。', 0);
-								}
-								console.log(res);
-								$('#AIuserText').val("");
-								sessionStorage.setItem("live2duser", userid_);
-							},
-							error: function(xhr) {
-								talkValTimer();
-								showMessage('请求失败，请检查网络或联系站长。', 0);
-								console.error(xhr);
+					type: 'POST',
+					url: 'https://open.bigmodel.cn/api/paas/v4/chat/completions',
+					headers: {
+						'Content-Type': 'application/json',
+						'Authorization': 'Bearer 1aa798ee820d75c7a59dc01d3265372e.GZyQHw5XvsgndyED' // 替换为你自己的API Key
+					},
+					data: JSON.stringify({
+						model: "glm-4",
+						messages: [
+							{
+								role: "user",
+								content: info_
 							}
-						});
-					});
-				}else{
-					$('#showInfoBtn').hide();
-					$('#showTalkBtn').hide();
-				}
+						]
+					}),
+					success: function(res) {
+						talkValTimer();
+						if (res.choices && res.choices.length > 0) {
+							const reply = res.choices[0].message.content;
+							showMessage(reply, 0);
+						} else {
+							showMessage('智普返回内容为空，请稍后再试。', 0);
+						}
+						console.log(res);
+						$('#AIuserText').val("");
+						sessionStorage.setItem("live2duser", userid_);
+					},
+					error: function(xhr) {
+						talkValTimer();
+						showMessage('请求失败，请检查网络或联系站长。', 0);
+						console.error(xhr);
+					}
+				});
+			});
+		}else{
+			$('#showInfoBtn').hide();
+			$('#showTalkBtn').hide();
+		}
+
 
 
 		// 		$.ajax({
