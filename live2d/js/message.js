@@ -148,7 +148,7 @@ if(!norunFlag){
 				text = '欢迎阅读<span style="color:#0099cc;">「 ' + document.title.split(' - ')[0] + ' 」</span>';
 			}
 		}
-		showMessage(text, 12000);
+		// showMessage(text, 12000); // 🔴 不再使用这处触发（只在初始加载）
 	})();
 	
 	liveTlakTimer = setInterval(function(){
@@ -524,17 +524,6 @@ if(!norunFlag){
 		}
 	});
 }
-
-	// 欢迎语函数
-	function showWelcomeOnArticlePage() {
-	  if (document.body.classList.contains('post')) {
-		var postTitle = document.title || '这篇文章';
-		if (postTitle.indexOf('|') !== -1) {
-		  postTitle = postTitle.split('|')[0].trim();
-		}
-		showMessage(`欢迎阅读《${postTitle}》~`, 6000, 1);
-	  }
-	}
 
 	// 绑定加载时和 PJAX 完成时触发
 	document.addEventListener('DOMContentLoaded', showWelcomeOnArticlePage);
