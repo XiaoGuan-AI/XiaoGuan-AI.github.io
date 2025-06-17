@@ -371,29 +371,35 @@ var talkAPI = "https://open.bigmodel.cn/api/paas/v4/chat/completions";  //可替
 }, 1000);
 initLive2d();
 </script><!-- ✅ 多首音乐循环播放--><script>$(function () {
-  var musicList = [
-    "/live2d/bgm/TurningPain.mp3",
-    "/live2d/bgm/Undersea.mp3",
-    "/live2d/bgm/Bias.mp3",
-    "/live2d/bgm/NoLongerHesitate.mp3",
-    "/live2d/bgm/Drowning.mp3",
-    "/live2d/bgm/MelancholyBeauty.mp3",
-    "/live2d/bgm/BesideYou.mp3"
+  const musicList = [
+    `${window.location.origin}/live2d/bgm/TurningPain.mp3`,
+    `${window.location.origin}/live2d/bgm/Undersea.mp3`,
+    `${window.location.origin}/live2d/bgm/Bias.mp3`,
+    `${window.location.origin}/live2d/bgm/NoLongerHesitate.mp3`,
+    `${window.location.origin}/live2d/bgm/Drowning.mp3`,
+    `${window.location.origin}/live2d/bgm/MelancholyBeauty.mp3`,
+    `${window.location.origin}/live2d/bgm/BesideYou.mp3`
   ];
 
-  var bgm = document.getElementById("live2d_bgm");
-  var musicBtn = $("#musicButton");
-  if (!bgm || musicBtn.length === 0) return;
+  const bgm = document.getElementById("live2d_bgm");
+  const musicBtn = $("#musicButton");
 
-  var currentTrack = 0;
-  var isPlaying = false;
+  if (!bgm || musicBtn.length === 0) {
+    console.warn("找不到音乐按钮或 bgm 元素");
+    return;
+  }
+
+  let currentTrack = 0;
+  let isPlaying = false;
 
   function playTrack(index) {
+    console.log("尝试播放:", musicList[index]);
     bgm.src = musicList[index];
     bgm.load();
     bgm.play().then(() => {
       isPlaying = true;
       musicBtn.addClass("playing");
+      console.log("播放成功");
     }).catch(err => {
       console.warn("播放失败:", err);
     });
@@ -405,13 +411,13 @@ initLive2d();
   });
 
   musicBtn.on("click", function () {
+    console.log("点击了音乐按钮");
     if (isPlaying) {
       bgm.pause();
       isPlaying = false;
       musicBtn.removeClass("playing");
     } else {
-      // 如果还没播放过，先播放第一首
-      if (!bgm.src) {
+      if (!bgm.src || bgm.src === window.location.href) {
         playTrack(currentTrack);
       } else {
         bgm.play().then(() => {
@@ -424,6 +430,7 @@ initLive2d();
     }
   });
 });
+
 
 
 
