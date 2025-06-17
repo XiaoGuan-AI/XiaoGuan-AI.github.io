@@ -413,8 +413,6 @@ initLive2d();
     });
   }
 
-  playTrack(currentTrack);
-
   bgm.addEventListener("ended", function () {
     currentTrack = (currentTrack + 1) % musicList.length;
     playTrack(currentTrack);
@@ -426,15 +424,21 @@ initLive2d();
       isPlaying = false;
       musicBtn.removeClass("playing");
     } else {
-      bgm.play().then(() => {
-        isPlaying = true;
-        musicBtn.addClass("playing");
-      }).catch(err => {
-        console.warn("播放失败:", err);
-      });
+      // 如果还没播放过，先播放第一首
+      if (!bgm.src) {
+        playTrack(currentTrack);
+      } else {
+        bgm.play().then(() => {
+          isPlaying = true;
+          musicBtn.addClass("playing");
+        }).catch(err => {
+          console.warn("播放失败:", err);
+        });
+      }
     }
   });
 });
+
 
 
 
