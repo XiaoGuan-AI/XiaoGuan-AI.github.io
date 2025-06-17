@@ -110,24 +110,20 @@ if(!norunFlag){
 		initTips();
 	
 		var text;
-		var home_Path = 'https://xiaoguan-ai.github.io/';  // 你的主页 URL（注意结尾要有斜杠）
-
-		if (document.referrer !== '') {
+		if(document.referrer !== ''){
 			var referrer = document.createElement('a');
 			referrer.href = document.referrer;
-			var domain = referrer.hostname.split('.')[1];
 			text = '嗨！来自 <span style="color:#0099cc;">' + referrer.hostname + '</span> 的朋友！';
-
+			var domain = referrer.hostname.split('.')[1];
 			if (domain == 'baidu') {
 				text = '嗨！ 来自 百度搜索 的朋友！<br>欢迎访问<span style="color:#0099cc;">「 ' + document.title.split(' - ')[0] + ' 」</span>';
-			} else if (domain == 'so') {
+			}else if (domain == 'so') {
 				text = '嗨！ 来自 360搜索 的朋友！<br>欢迎访问<span style="color:#0099cc;">「 ' + document.title.split(' - ')[0] + ' 」</span>';
-			} else if (domain == 'google') {
+			}else if (domain == 'google') {
 				text = '嗨！ 来自 谷歌搜索 的朋友！<br>欢迎访问<span style="color:#0099cc;">「 ' + document.title.split(' - ')[0] + ' 」</span>';
 			}
-		} else {
-			if (window.location.href === home_Path) {
-				// 🔵 主页欢迎逻辑
+		}else {
+			if (window.location.href == home_Path) { //主页URL判断，需要斜杠结尾
 				var now = (new Date()).getHours();
 				if (now > 23 || now <= 5) {
 					text = '你是夜猫子呀？这么晚还不睡觉，明天起的来嘛？';
@@ -148,13 +144,10 @@ if(!norunFlag){
 				} else {
 					text = '嗨~ 快来逗我玩吧！';
 				}
-			} else {
-				// 🟢 文章页欢迎逻辑
-				var articleTitle = document.title.split(' - ')[0];
-				text = '欢迎阅读<span style="color:#0099cc;">「 ' + articleTitle + ' 」</span>';
+			}else {
+				text = '欢迎阅读<span style="color:#0099cc;">「 ' + document.title.split(' - ')[0] + ' 」</span>';
 			}
 		}
-
 		showMessage(text, 12000);
 	})();
 	
@@ -531,6 +524,17 @@ if(!norunFlag){
 		}
 	});
 }
+
+	// 欢迎语函数
+	function showWelcomeOnArticlePage() {
+	  if (document.body.classList.contains('post')) {
+		var postTitle = document.title || '这篇文章';
+		if (postTitle.indexOf('|') !== -1) {
+		  postTitle = postTitle.split('|')[0].trim();
+		}
+		showMessage(`欢迎阅读《${postTitle}》~`, 6000, 1);
+	  }
+	}
 
 	// 绑定加载时和 PJAX 完成时触发
 	document.addEventListener('DOMContentLoaded', showWelcomeOnArticlePage);
