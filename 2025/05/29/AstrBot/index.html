@@ -404,7 +404,7 @@ var talkAPI = "https://open.bigmodel.cn/api/paas/v4/chat/completions";  //可替
   loadlive2d("live2d", message_Path + "model/histoire/model.json");
 }, 1000);
 initLive2d();
-</script><script>document.addEventListener("DOMContentLoaded", function () {
+</script><!-- ✅ 多首音乐循环播放--><script>document.addEventListener("DOMContentLoaded", function () {
   var musicList = [
     "/live2d/bgm/TurningPain.mp3",
     "/live2d/bgm/Undersea.mp3",
@@ -444,31 +444,83 @@ initLive2d();
   });
 });
 
-</script><!-- ✅ 有毒按钮特效script.
-  document.addEventListener("DOMContentLoaded", function () {
-    $('#youduButton').on('click', function () {
-      if ($('#youduButton').hasClass('doudong')) {
-        var typeIs = $('#youduButton').attr('data-type');
-        $('#youduButton').removeClass('doudong');
-        $('body').removeClass(typeIs);
-        $('#youduButton').attr('data-type', '');
-      } else {
-        var duType = $('#duType').val();
-        var duArr = duType.split(",");
-        var dataType = duArr[Math.floor(Math.random() * duArr.length)];
+</script><!-- ✅ 有毒按钮特效--><script>document.addEventListener("DOMContentLoaded", function () {
+  $('#youduButton').on('click', function () {
+    if ($('#youduButton').hasClass('doudong')) {
+      var typeIs = $('#youduButton').attr('data-type');
+      $('#youduButton').removeClass('doudong');
+      $('body').removeClass(typeIs);
+      $('#youduButton').attr('data-type', '');
+    } else {
+      var duType = $('#duType').val();
+      var duArr = duType.split(",");
+      var dataType = duArr[Math.floor(Math.random() * duArr.length)];
 
-        $('#youduButton').addClass('doudong');
-        $('#youduButton').attr('data-type', dataType);
-        $('body').addClass(dataType);
-      }
-    });
+      $('#youduButton').addClass('doudong');
+      $('#youduButton').attr('data-type', dataType);
+      $('body').addClass(dataType);
+    }
   });
+});
 
 
 
+</script><!-- ✅ 插入其他 JS（推荐在最后）--><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"><script>(() => {
+  const runMermaid = ele => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
 
-// ✅ 插入其他 JS（推荐在最后）
-include ./additional-js.pug-->
+    ele.forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = `%%{init:{ 'theme':'${theme}'}}%%\n`
+      const mermaidID = `mermaid-${index}`
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+      const renderMermaid = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      // mermaid v9 and v10 compatibility
+      typeof renderFn === 'string' ? renderMermaid(renderFn) : renderFn.then(({ svg }) => renderMermaid(svg))
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+
+    codeMermaidEle.forEach(ele => {
+      const preEle = document.createElement('pre')
+      preEle.className = 'mermaid-src'
+      preEle.hidden = true
+      preEle.textContent = ele.textContent
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.appendChild(preEle)
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    if (false) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaidFn)
+  }
+
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script></div><script>
+  let tianliGPT_postSelector = '#post #article-container';
+  let tianliGPT_Title = '小关智能摘要';
+  let tianliGPT_theme = 'yanzhi';
+  let tianliGPT_key = 'S-PC0U3BZQIHR3D3LQ';
+</script>
+<script src="https://ai.zhheo.com/static/public/tianli_gpt.min.js"></script><script async="" data-pjax="" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div>
     <link rel="stylesheet" href="https://ai.tianli0.top/static/public/postChatUser_summary.min.css">
     <script>
         let tianliGPT_key = 'S-PC0U3BZQIHR3D3LQ';
@@ -501,4 +553,4 @@ include ./additional-js.pug-->
         };
     </script>
     <script data-postchat_key="S-PC0U3BZQIHR3D3LQ" src="https://ai.tianli0.top/static/public/tianli_gpt.min.js"></script>
-  </body><!-- ✅ 多首音乐循环播放--></html>
+  </body></html>
