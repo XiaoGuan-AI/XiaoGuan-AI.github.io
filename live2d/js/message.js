@@ -109,26 +109,21 @@ if(!norunFlag){
 		}
 		initTips();
 	
-		var text;
+		var text = '';
 		var postTitle = document.title.split(' - ')[0].trim();
-		var isArticlePage = location.pathname.startsWith('/posts/') || document.body.classList.contains('post') || document.body.classList.contains('post-page') || document.body.classList.contains('layout-post');
+		var isArticlePage = location.pathname.includes('/posts/') || location.pathname.endsWith('.html');
 
-		if (isArticlePage) {
+		var siteDomain = window.location.origin;  // 如 https://xiaoguan-ai.github.io
+
+		// 判断是否从本站主页跳转进来的
+		var isFromHome = document.referrer !== '' && document.referrer.startsWith(siteDomain + '/');
+
+		// 判断是否首页
+		var isHomePage = window.location.href === siteDomain + '/' || window.location.pathname === '/';
+
+		if (isArticlePage && isFromHome) {
 			text = '欢迎阅读<span style="color:#0099cc;">「 ' + postTitle + ' 」</span>';
-		} else if (document.referrer !== '') {
-			var referrer = document.createElement('a');
-			referrer.href = document.referrer;
-			var domain = referrer.hostname.split('.')[1];
-			if (domain === 'baidu') {
-				text = '嗨！ 来自 百度搜索 的朋友！<br>欢迎访问<span style="color:#0099cc;">「 ' + postTitle + ' 」</span>';
-			} else if (domain === 'so') {
-				text = '嗨！ 来自 360搜索 的朋友！<br>欢迎访问<span style="color:#0099cc;">「 ' + postTitle + ' 」</span>';
-			} else if (domain === 'google') {
-				text = '嗨！ 来自 谷歌搜索 的朋友！<br>欢迎访问<span style="color:#0099cc;">「 ' + postTitle + ' 」</span>';
-			} else {
-				text = '嗨！来自 <span style="color:#0099cc;">' + referrer.hostname + '</span> 的朋友！';
-			}
-		} else if (window.location.href == home_Path) {
+		} else if (isHomePage) {
 			var now = (new Date()).getHours();
 			if (now > 23 || now <= 5) {
 				text = '你是夜猫子呀？这么晚还不睡觉，明天起的来嘛？';
@@ -154,6 +149,7 @@ if(!norunFlag){
 		}
 
 		showMessage(text, 12000);
+
 
 
 	})();
@@ -551,6 +547,7 @@ if(!norunFlag){
 			"纵有疾风起，人生不言弃。",
 			"你若盛开，蝴蝶自来；你若精彩，天自安排。",
 			"生活就像海洋，只有意志坚强的人，才能到达彼岸。",
+			"愿你有盔甲也有软肋，善良得有原则，感性得有底线。",
 			"所有的好运都藏在努力里。"
 	  ];
 
