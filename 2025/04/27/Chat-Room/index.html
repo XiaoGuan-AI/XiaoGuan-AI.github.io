@@ -283,24 +283,33 @@ initLive2d();
   var currentTime = parseFloat(localStorage.getItem("live2d_currentTime") || "0");
   var wasPlaying = localStorage.getItem("live2d_isPlaying") === "true";
 
-  var manuallyTriggered = false;
-
-  // ✅ 初始化播放器（仅设置 src，不播放）
+  // ✅ 初始化播放器
   if (bgm) {
     bgm.src = musicList[currentTrack];
     bgm.load();
 
     bgm.addEventListener("canplay", function () {
-      bgm.currentTime = currentTime;
+      bgm.currentTime = currentTime || 0;
+      if (wasPlaying) {
+        bgm.play().then(() => {
+          musicBtn && musicBtn.classList.add("playing");
+        }).catch(() => {
+          // 提示用户手动恢复
+          setTimeout(() => {
+            alert("进入新页面，音乐似乎被打断播放了，再点击一下音乐按钮续播音乐！");
+          }, 1000);
+        });
+      }
     });
 
-    // 播放结束切换下一首
+    // 播放结束自动播放下一首
     bgm.addEventListener("ended", function () {
       currentTrack = (currentTrack + 1) % musicList.length;
       localStorage.setItem("live2d_currentTrack", currentTrack);
       localStorage.setItem("live2d_currentTime", "0");
       bgm.src = musicList[currentTrack];
       bgm.load();
+      bgm.play();
     });
 
     // 实时保存播放进度
@@ -311,13 +320,12 @@ initLive2d();
     });
   }
 
+  // ✅ 控制按钮：播放 / 暂停
   if (musicBtn) {
     musicBtn.addEventListener("click", function () {
-      manuallyTriggered = true;
       if (bgm.paused) {
         bgm.play().then(() => {
           localStorage.setItem("live2d_isPlaying", "true");
-          localStorage.setItem("live2d_currentTrack", currentTrack);
           musicBtn.classList.add("playing");
         }).catch(err => {
           console.warn("播放失败：", err);
@@ -329,14 +337,8 @@ initLive2d();
       }
     });
   }
-
-  // ✅ 如果之前是播放状态，但现在是暂停状态，则提示用户点击恢复
-  if (wasPlaying && bgm && bgm.paused) {
-    setTimeout(function () {
-      alert("进入新页面，音乐似乎被打断播放了，再点击一下音乐按钮续播音乐！");
-    }, 1000);
-  }
 });
+
 
 
 
@@ -397,4 +399,4 @@ include ./additional-js.pug-->
         };
     </script>
     <script data-postchat_key="S-PC0U3BZQIHR3D3LQ" src="https://ai.tianli0.top/static/public/tianli_gpt.min.js"></script>
-  </body><!-- ✅ 多首音乐循环播放（修正：断点续播 + 判断恢复播放提示）--></html>
+  </body><!-- ✅ 多首音乐循环播放--></html>
