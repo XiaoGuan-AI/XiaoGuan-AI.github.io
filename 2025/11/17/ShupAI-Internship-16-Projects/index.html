@@ -1,0 +1,511 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>云南数派数据科技 — AI 硬件开发实习（16 个项目全记录） | AI攻城狮小关</title><meta name="author" content="小关"><meta name="copyright" content="小关"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="🏢 云南数派数据科技 — AI 硬件开发实习 公司：云南数派数据科技有限公司 · 岗位：AI 硬件开发-项目经理时间：2025.11.17 – 2026.06.30 · 负责人：李滨兵核心职责：负责 AIoT 智能硬件产品全流程从 0 到 1 研发（需求→硬件→嵌软→软硬件联调→部署→外壳建模→产品）实习期间共完成 16 个项目  📌 项目总览   # 项目名称 类型 核心技术    1 AI">
+<meta property="og:type" content="article">
+<meta property="og:title" content="云南数派数据科技 — AI 硬件开发实习（16 个项目全记录）">
+<meta property="og:url" content="http://example.com/2025/11/17/ShupAI-Internship-16-Projects/index.html">
+<meta property="og:site_name" content="AI攻城狮小关">
+<meta property="og:description" content="🏢 云南数派数据科技 — AI 硬件开发实习 公司：云南数派数据科技有限公司 · 岗位：AI 硬件开发-项目经理时间：2025.11.17 – 2026.06.30 · 负责人：李滨兵核心职责：负责 AIoT 智能硬件产品全流程从 0 到 1 研发（需求→硬件→嵌软→软硬件联调→部署→外壳建模→产品）实习期间共完成 16 个项目  📌 项目总览   # 项目名称 类型 核心技术    1 AI">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/default-bg.jpg">
+<meta property="article:published_time" content="2025-11-17T04:00:00.000Z">
+<meta property="article:modified_time" content="2026-08-11T07:02:35.622Z">
+<meta property="article:author" content="小关">
+<meta property="article:tag" content="ESP32">
+<meta property="article:tag" content="AIoT">
+<meta property="article:tag" content="实习">
+<meta property="article:tag" content="嵌入式">
+<meta property="article:tag" content="3D打印">
+<meta property="article:tag" content="智能硬件">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/default-bg.jpg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "云南数派数据科技 — AI 硬件开发实习（16 个项目全记录）",
+  "url": "http://example.com/2025/11/17/ShupAI-Internship-16-Projects/",
+  "image": "http://example.com/img/default-bg.jpg",
+  "datePublished": "2025-11-17T04:00:00.000Z",
+  "dateModified": "2026-08-11T07:02:35.622Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "小关",
+      "url": "http://example.com/"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.jpg"><link rel="canonical" href="http://example.com/2025/11/17/ShupAI-Internship-16-Projects/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"><link rel="preconnect" href="//busuanzi.ibruce.info"><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><!-- ✅ 正确的 link 引入方式--><link rel="stylesheet" href="/live2d/css/live2d.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '云南数派数据科技 — AI 硬件开发实习（16 个项目全记录）',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="https://ai.zhheo.com/static/public/tianli_gpt.min.css"><link rel="stylesheet" href="/live2d/css/live2d.css"><meta name="generator" content="Hexo 7.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">41</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">95</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">20</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="https://xiaoguan-ai.github.io/"><i class="fa-fw fas fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 导航</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 文章</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-list"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/project/"><i class="fa-fw fas fa-diagram-project"></i><span> 项目</span></a></div><div class="menus_item"><a class="site-page" href="/achievement/"><i class="fa-fw fas fa-certificate"></i><span> 获奖证书</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-heart"></i><span> 热爱生活</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/fitness/"><i class="fa-fw fas fa-dumbbell"></i><span> 健身</span></a></li><li><a class="site-page child" href="/billiards/"><i class="fa-fw fas fa-bowling-ball"></i><span> 台球</span></a></li><li><a class="site-page child" href="/football/"><i class="fa-fw fas fa-futbol"></i><span> 足球</span></a></li><li><a class="site-page child" href="/fishing/"><i class="fa-fw fas fa-fish"></i><span> 钓鱼</span></a></li><li><a class="site-page child" href="/reading/"><i class="fa-fw fas fa-book"></i><span> 阅读</span></a></li><li><a class="site-page child" href="/arts/"><i class="fa-fw fas fa-paint-brush"></i><span> 艺术</span></a></li><li><a class="site-page child" href="/games/"><i class="fa-fw fas fa-gamepad"></i><span> 游戏</span></a></li><li><a class="site-page child" href="/kitchen/"><i class="fa-fw fas fa-utensils"></i><span> 小关下厨</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-tools"></i><span> 工具</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/tools/"><i class="fa-fw fas fa-tools"></i><span> 在线工具</span></a></li><li><a class="site-page child" href="/demo/"><i class="fa-fw fas fa-anchor"></i><span> 在线可视化</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/chat/"><i class="fa-fw fas fa-place-of-worship"></i><span> AI聊天室</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友人帐</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于我</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header" style="background-image: url(/img/default-bg.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">AI攻城狮小关</span></a><a class="nav-page-title" href="/"><span class="site-name">云南数派数据科技 — AI 硬件开发实习（16 个项目全记录）</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="https://xiaoguan-ai.github.io/"><i class="fa-fw fas fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 导航</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 文章</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-list"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/project/"><i class="fa-fw fas fa-diagram-project"></i><span> 项目</span></a></div><div class="menus_item"><a class="site-page" href="/achievement/"><i class="fa-fw fas fa-certificate"></i><span> 获奖证书</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-heart"></i><span> 热爱生活</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/fitness/"><i class="fa-fw fas fa-dumbbell"></i><span> 健身</span></a></li><li><a class="site-page child" href="/billiards/"><i class="fa-fw fas fa-bowling-ball"></i><span> 台球</span></a></li><li><a class="site-page child" href="/football/"><i class="fa-fw fas fa-futbol"></i><span> 足球</span></a></li><li><a class="site-page child" href="/fishing/"><i class="fa-fw fas fa-fish"></i><span> 钓鱼</span></a></li><li><a class="site-page child" href="/reading/"><i class="fa-fw fas fa-book"></i><span> 阅读</span></a></li><li><a class="site-page child" href="/arts/"><i class="fa-fw fas fa-paint-brush"></i><span> 艺术</span></a></li><li><a class="site-page child" href="/games/"><i class="fa-fw fas fa-gamepad"></i><span> 游戏</span></a></li><li><a class="site-page child" href="/kitchen/"><i class="fa-fw fas fa-utensils"></i><span> 小关下厨</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-tools"></i><span> 工具</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/tools/"><i class="fa-fw fas fa-tools"></i><span> 在线工具</span></a></li><li><a class="site-page child" href="/demo/"><i class="fa-fw fas fa-anchor"></i><span> 在线可视化</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/chat/"><i class="fa-fw fas fa-place-of-worship"></i><span> AI聊天室</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友人帐</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于我</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">云南数派数据科技 — AI 硬件开发实习（16 个项目全记录）</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-11-17T04:00:00.000Z" title="发表于 2025-11-17 12:00:00">2025-11-17</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-08-11T07:02:35.622Z" title="更新于 2026-08-11 15:02:35">2026-08-11</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%AE%9E%E4%B9%A0%E7%BB%8F%E5%8E%86/">实习经历</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><div id="postchat_postcontent"><h1 id="🏢-云南数派数据科技-—-AI-硬件开发实习"><a href="#🏢-云南数派数据科技-—-AI-硬件开发实习" class="headerlink" title="🏢 云南数派数据科技 — AI 硬件开发实习"></a>🏢 云南数派数据科技 — AI 硬件开发实习</h1><blockquote>
+<p><strong>公司</strong>：云南数派数据科技有限公司 · <strong>岗位</strong>：AI 硬件开发-项目经理<br><strong>时间</strong>：2025.11.17 – 2026.06.30 · <strong>负责人</strong>：李滨兵<br><strong>核心职责</strong>：负责 AIoT 智能硬件产品全流程<strong>从 0 到 1 研发</strong>（需求→硬件→嵌软→软硬件联调→部署→外壳建模→产品）<br><strong>实习期间共完成 16 个项目</strong></p>
+</blockquote>
+<h2 id="📌-项目总览"><a href="#📌-项目总览" class="headerlink" title="📌 项目总览"></a>📌 项目总览</h2><table>
+<thead>
+<tr>
+<th>#</th>
+<th>项目名称</th>
+<th>类型</th>
+<th>核心技术</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>AI 工牌-声纹系统</td>
+<td>产品</td>
+<td>声纹识别</td>
+</tr>
+<tr>
+<td>2</td>
+<td>JNZ-工作日志管理系统</td>
+<td>平台</td>
+<td>Web 管理系统</td>
+</tr>
+<tr>
+<td>3</td>
+<td>云南博物馆文创系统</td>
+<td>文旅</td>
+<td>数字文创</td>
+</tr>
+<tr>
+<td>4</td>
+<td>AI 宠物机械鸭</td>
+<td>产品</td>
+<td>3D 打印 + 交互</td>
+</tr>
+<tr>
+<td>5</td>
+<td>AI 儿童打印机 V1</td>
+<td>产品</td>
+<td>热敏打印 + AI</td>
+</tr>
+<tr>
+<td>6</td>
+<td>AI 儿童打印机 V2</td>
+<td>产品</td>
+<td>龙凤呈祥主题</td>
+</tr>
+<tr>
+<td>7</td>
+<td>智能元器件分拣箱</td>
+<td>产品</td>
+<td>图像分类 + LED 寻址</td>
+</tr>
+<tr>
+<td>8</td>
+<td>发票助手</td>
+<td>工具</td>
+<td>PDF 解析 + Excel 生成</td>
+</tr>
+<tr>
+<td>9</td>
+<td>朝廷+调兵平台</td>
+<td>AI 平台</td>
+<td>多智能体协作</td>
+</tr>
+<tr>
+<td>10</td>
+<td>灯带消消乐</td>
+<td>趣味</td>
+<td>ESP32-S3 + 实体灯带</td>
+</tr>
+<tr>
+<td>11</td>
+<td>ClawBot / ESP-Claw</td>
+<td>机器人</td>
+<td>机械爪控制</td>
+</tr>
+<tr>
+<td>12</td>
+<td>AI 智能药盒 V1</td>
+<td>产品</td>
+<td>多模态用药提醒</td>
+</tr>
+<tr>
+<td>13</td>
+<td>AI 智能药盒 V2</td>
+<td>产品</td>
+<td>摄像头 + 触摸屏 + 公网部署</td>
+</tr>
+<tr>
+<td>14</td>
+<td>贴片机坐标转换平台</td>
+<td>工具</td>
+<td>PCB 坐标文件转换</td>
+</tr>
+<tr>
+<td>15</td>
+<td>Hardware-πOS 硬件开发平台</td>
+<td>平台</td>
+<td>LLM + 状态机引导</td>
+</tr>
+<tr>
+<td>16</td>
+<td>互动教学课堂平台</td>
+<td>教育</td>
+<td>多智能体课堂</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="🔥-重点项目简介"><a href="#🔥-重点项目简介" class="headerlink" title="🔥 重点项目简介"></a>🔥 重点项目简介</h2><h3 id="🏷️-1-AI-工牌-声纹系统"><a href="#🏷️-1-AI-工牌-声纹系统" class="headerlink" title="🏷️ 1. AI 工牌-声纹系统"></a>🏷️ 1. AI 工牌-声纹系统</h3><p>基于声纹识别技术的智能工牌系统，配合 AI 工牌管理系统，实现身份识别与考勤管理。</p>
+<h3 id="📋-2-JNZ-工作日志管理系统"><a href="#📋-2-JNZ-工作日志管理系统" class="headerlink" title="📋 2. JNZ-工作日志管理系统"></a>📋 2. JNZ-工作日志管理系统</h3><p>企业内部工作日志管理平台，支持日志提交、审批、统计等全流程管理。</p>
+<h3 id="🏛️-3-云南博物馆文创系统"><a href="#🏛️-3-云南博物馆文创系统" class="headerlink" title="🏛️ 3. 云南博物馆文创系统"></a>🏛️ 3. 云南博物馆文创系统</h3><p>为云南博物馆打造数字文创系统，融合文化元素与 AI 技术，实现文创产品的数字化展示与交互。</p>
+<h3 id="🦆-4-AI-宠物机械鸭"><a href="#🦆-4-AI-宠物机械鸭" class="headerlink" title="🦆 4. AI 宠物机械鸭"></a>🦆 4. AI 宠物机械鸭</h3><p>3D 打印制造的 AI 陪伴机械鸭，包含爆炸图设计、组装调试，实现简单的交互陪伴功能。</p>
+<h3 id="🖨️-5-6-AI-儿童打印机（V1-V2）"><a href="#🖨️-5-6-AI-儿童打印机（V1-V2）" class="headerlink" title="🖨️ 5-6. AI 儿童打印机（V1 &amp; V2）"></a>🖨️ 5-6. AI 儿童打印机（V1 &amp; V2）</h3><ul>
+<li><strong>V1</strong>：原计划红黄蓝绿 4 台，实际交付红黄绿 3 台；含说明书和样品图</li>
+<li><strong>V2</strong>：龙凤呈祥主题升级版，融入中国传统文化元素</li>
+</ul>
+<h3 id="📦-7-智能元器件分拣箱"><a href="#📦-7-智能元器件分拣箱" class="headerlink" title="📦 7. 智能元器件分拣箱"></a>📦 7. 智能元器件分拣箱</h3><p>基于图像分类的元器件自动分拣系统，配合 LED 寻址灯指示分拣位置。</p>
+<h3 id="📄-8-发票助手"><a href="#📄-8-发票助手" class="headerlink" title="📄 8. 发票助手"></a>📄 8. 发票助手</h3><p>批量处理 PDF 电子发票→自动提取报销信息→生成可打印报销单 Excel + 分类 PDF 压缩包。</p>
+<h3 id="🏯-9-朝廷-调兵平台"><a href="#🏯-9-朝廷-调兵平台" class="headerlink" title="🏯 9. 朝廷+调兵平台"></a>🏯 9. 朝廷+调兵平台</h3><p>多智能体协作架构，实现专家团队调度与任务分配。</p>
+<h3 id="💡-10-灯带消消乐"><a href="#💡-10-灯带消消乐" class="headerlink" title="💡 10. 灯带消消乐"></a>💡 10. 灯带消消乐</h3><p>ESP32-S3 驱动的实体灯带反应/消除游戏，4 个实体按键 + I2S 音效，玩法类似祖玛。</p>
+<h3 id="🦾-11-ClawBot-和-ESP-Claw"><a href="#🦾-11-ClawBot-和-ESP-Claw" class="headerlink" title="🦾 11. ClawBot 和 ESP-Claw"></a>🦾 11. ClawBot 和 ESP-Claw</h3><p>基于 ESP32 的机械爪机器人，实现远程控制与简单抓取操作。</p>
+<h3 id="💊-12-13-AI-智能药盒（V1-V2）"><a href="#💊-12-13-AI-智能药盒（V1-V2）" class="headerlink" title="💊 12-13. AI 智能药盒（V1 &amp; V2）"></a>💊 12-13. AI 智能药盒（V1 &amp; V2）</h3><p><strong>V1（原型机）</strong>：</p>
+<ul>
+<li>灯光/屏幕/语音/开合检测多模态提醒</li>
+<li>“到点提醒-开盒确认-灯光记录”闭环</li>
+<li>硬件设计/联调/外壳/装配全流程</li>
+</ul>
+<p><strong>V2（多功能版）</strong>：</p>
+<ul>
+<li>新增摄像头采集症状、触摸屏交互、对话模式</li>
+<li>后置 500 万像素、扫码配网、低功耗模式</li>
+<li>语音控制、用药进度统计</li>
+</ul>
+<h3 id="⚙️-14-贴片机坐标转换平台"><a href="#⚙️-14-贴片机坐标转换平台" class="headerlink" title="⚙️ 14. 贴片机坐标转换平台"></a>⚙️ 14. 贴片机坐标转换平台</h3><p>EasyEDA / 嘉立创 EDA 贴片坐标文件→贴片机标准 CSV，自动清洗坐标数据。</p>
+<h3 id="🖥️-15-Hardware-πOS-硬件开发平台"><a href="#🖥️-15-Hardware-πOS-硬件开发平台" class="headerlink" title="🖥️ 15. Hardware-πOS 硬件开发平台"></a>🖥️ 15. Hardware-πOS 硬件开发平台</h3><p>一句话→第一版可视化硬件原型机。引导式多轮对话 LLM + 状态机，实现需求澄清→模块选型→仿真验证。</p>
+<h3 id="📚-16-互动教学课堂平台"><a href="#📚-16-互动教学课堂平台" class="headerlink" title="📚 16. 互动教学课堂平台"></a>📚 16. 互动教学课堂平台</h3><p>开放式多智能体课堂，支持选章节生成互动教学内容。</p>
+<hr>
+<h2 id="🏆-实习收获"><a href="#🏆-实习收获" class="headerlink" title="🏆 实习收获"></a>🏆 实习收获</h2><ul>
+<li><strong>全流程能力</strong>：从需求分析到产品交付的完整 AIoT 硬件开发经验</li>
+<li><strong>项目管理</strong>：主导 3 款产品完成版本迭代交付</li>
+<li><strong>技术广度</strong>：涵盖嵌入式开发、3D 建模打印、AI 算法、Web 平台、多智能体系统</li>
+<li><strong>工程思维</strong>：从 0 到 1 的产品化思维，平衡技术可行性与商业需求</li>
+</ul>
+<hr>
+<p><em>16 个项目，7 个月，从硬件到软件、从原型到产品的全方位历练。</em></p>
+</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://example.com">小关</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2025/11/17/ShupAI-Internship-16-Projects/">http://example.com/2025/11/17/ShupAI-Internship-16-Projects/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="http://example.com" target="_blank">AI攻城狮小关</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/ESP32/">ESP32</a><a class="post-meta__tags" href="/tags/AIoT/">AIoT</a><a class="post-meta__tags" href="/tags/%E5%AE%9E%E4%B9%A0/">实习</a><a class="post-meta__tags" href="/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/">嵌入式</a><a class="post-meta__tags" href="/tags/3D%E6%89%93%E5%8D%B0/">3D打印</a><a class="post-meta__tags" href="/tags/%E6%99%BA%E8%83%BD%E7%A1%AC%E4%BB%B6/">智能硬件</a></div><div class="post-share"><div class="social-share" data-image="/img/default-bg.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer=""></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related full-width" href="/2025/06/22/Bluetooth-Speaker/" title="🔊  ESP32 蓝牙音箱制作教程"><img class="cover" src="/2025/06/22/Bluetooth-Speaker/1.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">🔊  ESP32 蓝牙音箱制作教程</div></div><div class="info-2"><div class="info-item-1">🔊  ESP32 蓝牙音箱制作教程（详细图文版） 📍 作者： Jia’nan Zhao📅 时间： 2025‑6‑22  🎯 bilibili项目演示地址： 🔊  ESP32 蓝牙音箱 本教程将手把手教你如何使用 ESP32 + MAX98357A + 扬声器 自制一台支持 蓝牙连接手机外放音频 的音箱装置，适合电子爱好者、DIY 项目爱好者参考。  🧰 所需材料   名称 规格 / 型号 用途说明    ESP32 开发板 DevKit V1（30pin） 主控，支持蓝牙与 I2S 接口   MAX98357A 模块 I2S 数字音频解码放大器 将数字信号转换为模拟音频   扬声器 3W 4Ω～8Ω 音频输出单元   杜邦线 公对母 / 公对公若干 连接模块与开发板   Micro USB 线 用于给 ESP32 上电与烧录固件 电源与通信   热熔胶 / 胶带 — 固定模块用   外壳 / 容器 任意（如食品盒、木盒等） 保护并美化成品    🧩 电路连接说明以下是模块接线说明与参考图： 🔌 接线图参考 📍...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2025/06/22/Bluetooth-Speaker/" title="🔊  ESP32 蓝牙音箱制作教程"><img class="cover" src="/2025/06/22/Bluetooth-Speaker/1.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-06-22</div><div class="info-item-2">🔊  ESP32 蓝牙音箱制作教程</div></div><div class="info-2"><div class="info-item-1">🔊  ESP32 蓝牙音箱制作教程（详细图文版） 📍 作者： Jia’nan Zhao📅 时间： 2025‑6‑22  🎯 bilibili项目演示地址： 🔊  ESP32 蓝牙音箱 本教程将手把手教你如何使用 ESP32 + MAX98357A + 扬声器 自制一台支持 蓝牙连接手机外放音频 的音箱装置，适合电子爱好者、DIY 项目爱好者参考。  🧰 所需材料   名称 规格 / 型号 用途说明    ESP32 开发板 DevKit V1（30pin） 主控，支持蓝牙与 I2S 接口   MAX98357A 模块 I2S 数字音频解码放大器 将数字信号转换为模拟音频   扬声器 3W 4Ω～8Ω 音频输出单元   杜邦线 公对母 / 公对公若干 连接模块与开发板   Micro USB 线 用于给 ESP32 上电与烧录固件 电源与通信   热熔胶 / 胶带 — 固定模块用   外壳 / 容器 任意（如食品盒、木盒等） 保护并美化成品    🧩 电路连接说明以下是模块接线说明与参考图： 🔌 接线图参考 📍...</div></div></div></a><a class="pagination-related" href="/2025/05/12/Button-Communication-System/" title="🧓 按钮通讯系统雏形（物联网设备与PC通信方案）"><img class="cover" src="/2025/05/12/Button-Communication-System/1.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-05-12</div><div class="info-item-2">🧓 按钮通讯系统雏形（物联网设备与PC通信方案）</div></div><div class="info-2"><div class="info-item-1">🧓 按钮通讯系统：多障人群应急呼救方案（雏形） 📍 作者： Jia’nan Zhao📅 时间： 2023‑12-17  🎯 bilibili项目演示地址： 🧓 按钮通讯系统 本项目旨在为老人、聋哑人、盲人等特殊人群提供一套便捷、可靠的紧急呼救通讯系统。用户通过按键即可向远程接线员发送文本/语音求助信息，支持WiFi远程通信、语音播放、按钮状态反馈等功能。  🧩 适用场景与人群   人群类别 操作方式 系统响应    聋 按键 + 闪灯 灯光提示 + 文本消息发送至 App   哑 按键 + 闪灯 文本发送 + App 提示音   盲 语音提示 + 按键 音频播报反馈 + 语音上传   聋哑 按键 + 闪灯 文本消息发送   聋盲 语音提示 音频消息上传 + 响应播放   聋哑盲 超大按钮 + 闪灯反馈 文本+语音呼救，App 响应震动与语音播报    📲 APP 通信系统架构📱 App 功能模块 ✅ 实时接收文本和语音消息（基于 WebSocket / Firebase 等） 🔔 收到提醒：震动 + 弹窗 + 语音提示 📬 “已收到”按钮...</div></div></div></a><a class="pagination-related" href="/2025/05/27/WiFi-Remote-Intercom/" title="📡 WiFi 远程对讲机"><img class="cover" src="/2025/05/27/WiFi-Remote-Intercom/1.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-05-27</div><div class="info-item-2">📡 WiFi 远程对讲机</div></div><div class="info-2"><div class="info-item-1">自制 📡 WiFi 远程对讲机制作指南 📍 作者： Jia’nan Zhao📅 时间： 2024‑7‑13  🎯 bilibili项目演示地址： 📡 WiFi 远程对讲机  图1所示，就是本期我给大家带来的新作品WiFi 远程对讲机的完整实物成品图，以及一份完整的自制WiFi远程对讲机制作指南，涵盖从硬件元件清单、接线说明、外壳组装、软件开发到使用方法和常见问题排查。   图2所示，是WiFi 远程对讲机的封装产品图，外壳应该要用3D打印定制的，奈何资金有限，哈哈，只能找合适大小的盒子封装起来了，开孔布置按钮、喇叭、以及充电口的问题，有待进一步解决和美化。。。 一、元件清单根据类似项目，本对讲机所需组件包括：ESP32 开发板、MAX98357A I2S 功放模块、INMP441 I2S 麦克风模块、4Ω/8Ω 扬声器和推挽按钮等硬件。详细元件说明如下：  ESP32 开发板：任何常见的 ESP-WROOM-32 开发板（如 DOIT DevKit）均可。ESP32 负责 WiFi 通信、音频数据的读写与处理。 INMP441 I2S 麦克风模块：24...</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"></div><div class="author-info-name">小关</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">41</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">95</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">20</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/XiaoGuan-AI"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">欢迎来到我的博客！</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%F0%9F%8F%A2-%E4%BA%91%E5%8D%97%E6%95%B0%E6%B4%BE%E6%95%B0%E6%8D%AE%E7%A7%91%E6%8A%80-%E2%80%94-AI-%E7%A1%AC%E4%BB%B6%E5%BC%80%E5%8F%91%E5%AE%9E%E4%B9%A0"><span class="toc-number">1.</span> <span class="toc-text">🏢 云南数派数据科技 — AI 硬件开发实习</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%93%8C-%E9%A1%B9%E7%9B%AE%E6%80%BB%E8%A7%88"><span class="toc-number">1.1.</span> <span class="toc-text">📌 项目总览</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%94%A5-%E9%87%8D%E7%82%B9%E9%A1%B9%E7%9B%AE%E7%AE%80%E4%BB%8B"><span class="toc-number">1.2.</span> <span class="toc-text">🔥 重点项目简介</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%8F%B7%EF%B8%8F-1-AI-%E5%B7%A5%E7%89%8C-%E5%A3%B0%E7%BA%B9%E7%B3%BB%E7%BB%9F"><span class="toc-number">1.2.1.</span> <span class="toc-text">🏷️ 1. AI 工牌-声纹系统</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%93%8B-2-JNZ-%E5%B7%A5%E4%BD%9C%E6%97%A5%E5%BF%97%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F"><span class="toc-number">1.2.2.</span> <span class="toc-text">📋 2. JNZ-工作日志管理系统</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%8F%9B%EF%B8%8F-3-%E4%BA%91%E5%8D%97%E5%8D%9A%E7%89%A9%E9%A6%86%E6%96%87%E5%88%9B%E7%B3%BB%E7%BB%9F"><span class="toc-number">1.2.3.</span> <span class="toc-text">🏛️ 3. 云南博物馆文创系统</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%A6%86-4-AI-%E5%AE%A0%E7%89%A9%E6%9C%BA%E6%A2%B0%E9%B8%AD"><span class="toc-number">1.2.4.</span> <span class="toc-text">🦆 4. AI 宠物机械鸭</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%96%A8%EF%B8%8F-5-6-AI-%E5%84%BF%E7%AB%A5%E6%89%93%E5%8D%B0%E6%9C%BA%EF%BC%88V1-V2%EF%BC%89"><span class="toc-number">1.2.5.</span> <span class="toc-text">🖨️ 5-6. AI 儿童打印机（V1 &amp; V2）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%93%A6-7-%E6%99%BA%E8%83%BD%E5%85%83%E5%99%A8%E4%BB%B6%E5%88%86%E6%8B%A3%E7%AE%B1"><span class="toc-number">1.2.6.</span> <span class="toc-text">📦 7. 智能元器件分拣箱</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%93%84-8-%E5%8F%91%E7%A5%A8%E5%8A%A9%E6%89%8B"><span class="toc-number">1.2.7.</span> <span class="toc-text">📄 8. 发票助手</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%8F%AF-9-%E6%9C%9D%E5%BB%B7-%E8%B0%83%E5%85%B5%E5%B9%B3%E5%8F%B0"><span class="toc-number">1.2.8.</span> <span class="toc-text">🏯 9. 朝廷+调兵平台</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%92%A1-10-%E7%81%AF%E5%B8%A6%E6%B6%88%E6%B6%88%E4%B9%90"><span class="toc-number">1.2.9.</span> <span class="toc-text">💡 10. 灯带消消乐</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%A6%BE-11-ClawBot-%E5%92%8C-ESP-Claw"><span class="toc-number">1.2.10.</span> <span class="toc-text">🦾 11. ClawBot 和 ESP-Claw</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%92%8A-12-13-AI-%E6%99%BA%E8%83%BD%E8%8D%AF%E7%9B%92%EF%BC%88V1-V2%EF%BC%89"><span class="toc-number">1.2.11.</span> <span class="toc-text">💊 12-13. AI 智能药盒（V1 &amp; V2）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E2%9A%99%EF%B8%8F-14-%E8%B4%B4%E7%89%87%E6%9C%BA%E5%9D%90%E6%A0%87%E8%BD%AC%E6%8D%A2%E5%B9%B3%E5%8F%B0"><span class="toc-number">1.2.12.</span> <span class="toc-text">⚙️ 14. 贴片机坐标转换平台</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%96%A5%EF%B8%8F-15-Hardware-%CF%80OS-%E7%A1%AC%E4%BB%B6%E5%BC%80%E5%8F%91%E5%B9%B3%E5%8F%B0"><span class="toc-number">1.2.13.</span> <span class="toc-text">🖥️ 15. Hardware-πOS 硬件开发平台</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%93%9A-16-%E4%BA%92%E5%8A%A8%E6%95%99%E5%AD%A6%E8%AF%BE%E5%A0%82%E5%B9%B3%E5%8F%B0"><span class="toc-number">1.2.14.</span> <span class="toc-text">📚 16. 互动教学课堂平台</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%8F%86-%E5%AE%9E%E4%B9%A0%E6%94%B6%E8%8E%B7"><span class="toc-number">1.3.</span> <span class="toc-text">🏆 实习收获</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2025/11/17/ShupAI-Internship-16-Projects/" title="云南数派数据科技 — AI 硬件开发实习（16 个项目全记录）"><img src="/img/default-bg.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="云南数派数据科技 — AI 硬件开发实习（16 个项目全记录）"></a><div class="content"><a class="title" href="/2025/11/17/ShupAI-Internship-16-Projects/" title="云南数派数据科技 — AI 硬件开发实习（16 个项目全记录）">云南数派数据科技 — AI 硬件开发实习（16 个项目全记录）</a><time datetime="2025-11-17T04:00:00.000Z" title="发表于 2025-11-17 12:00:00">2025-11-17</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/06/22/Bluetooth-Speaker/" title="🔊  ESP32 蓝牙音箱制作教程"><img src="/2025/06/22/Bluetooth-Speaker/1.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="🔊  ESP32 蓝牙音箱制作教程"></a><div class="content"><a class="title" href="/2025/06/22/Bluetooth-Speaker/" title="🔊  ESP32 蓝牙音箱制作教程">🔊  ESP32 蓝牙音箱制作教程</a><time datetime="2025-06-22T11:15:12.000Z" title="发表于 2025-06-22 19:15:12">2025-06-22</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/05/29/AstrBot/" title="🌌 AstrBot：多平台 LLM 聊天机器人部署"><img src="/2025/05/29/AstrBot/6.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="🌌 AstrBot：多平台 LLM 聊天机器人部署"></a><div class="content"><a class="title" href="/2025/05/29/AstrBot/" title="🌌 AstrBot：多平台 LLM 聊天机器人部署">🌌 AstrBot：多平台 LLM 聊天机器人部署</a><time datetime="2025-05-29T06:31:55.000Z" title="发表于 2025-05-29 14:31:55">2025-05-29</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/05/28/SmartCrib/" title="🛏️ 智能婴儿床控制系统二代"><img src="/2025/05/28/SmartCrib/1.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="🛏️ 智能婴儿床控制系统二代"></a><div class="content"><a class="title" href="/2025/05/28/SmartCrib/" title="🛏️ 智能婴儿床控制系统二代">🛏️ 智能婴儿床控制系统二代</a><time datetime="2025-05-28T08:25:33.000Z" title="发表于 2025-05-28 16:25:33">2025-05-28</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/05/27/Personal-Website/" title="🌐 使用 Hexo + GitHub + Vercel 搭建个人博客并实现自动化部署"><img src="/2025/05/27/Personal-Website/1.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="🌐 使用 Hexo + GitHub + Vercel 搭建个人博客并实现自动化部署"></a><div class="content"><a class="title" href="/2025/05/27/Personal-Website/" title="🌐 使用 Hexo + GitHub + Vercel 搭建个人博客并实现自动化部署">🌐 使用 Hexo + GitHub + Vercel 搭建个人博客并实现自动化部署</a><time datetime="2025-05-27T07:17:24.000Z" title="发表于 2025-05-27 15:17:24">2025-05-27</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">©2025 - 2026 By 小关</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.4.0-b1</a></span></div></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div></footer></div><!-- ✅ Live2D 看板娘容器--><div id="landlord" style="left:5px;bottom:0px;"><div class="message" style="opacity:0"></div><canvas class="live2d" id="live2d" width="500" height="560"></canvas><div class="live_talk_input_body"><div class="live_talk_input_name_body"><input class="white_input" id="AIuserName" type="text" name="name" autocomplete="off" placeholder="你的名字"></div><div class="live_talk_input_text_body"><input class="white_input" id="AIuserText" type="text" name="talk" autocomplete="off" placeholder="要和我聊什么呀？"><button class="live_talk_send_btn" id="talk_send" type="button">发送</button></div></div><input id="live_talk" type="hidden" name="live_talk" value="1"><div class="live_ico_box"><div class="live_ico_item type_info" id="showInfoBtn"></div><div class="live_ico_item type_talk" id="showTalkBtn"></div><div class="live_ico_item type_music" id="musicButton"></div><div class="live_ico_item type_youdu" id="youduButton"></div><div class="live_ico_item type_quit" id="hideButton"></div><input id="live_statu_val" type="hidden" name="live_statu_val" value="0"><input id="duType" type="hidden" value="douqilai,l2d_caihong"><audio id="live2d_bgm" preload="auto" style="display:none;" data-bgm="0"></audio><input type="hidden" name="live2dBGM" value="/live2d/bgm/TurningPain.mp3"><input type="hidden" name="live2dBGM" value="/live2d/bgm/Undersea.mp3"><input type="hidden" name="live2dBGM" value="/live2d/bgm/WindyHill.mp3"></div></div><!-- ✅ 看板娘召唤按钮--><div id="open_live2d">召唤伊斯特瓦尔</div><!-- ✅ 引入脚本--><script src="https://apps.bdimg.com/libs/jquery/1.7.1/jquery.min.js"></script><script>var message_Path = "/live2d/";  //资源目录，如果目录不对请更改
+var talkAPI = "https://open.bigmodel.cn/api/paas/v4/chat/completions";  //可替换为你的对话接口路径URL，不是API秘钥</script><script src="/live2d/js/live2d.js"></script><script src="/live2d/js/message.js"></script><script>setTimeout(function () {
+  loadlive2d("live2d", message_Path + "model/histoire/model.json");
+}, 1000);
+initLive2d();
+</script><!-- ✅ 多首音乐循环播放修复（播放下一首需等待加载完成再 play）--><script>document.addEventListener("DOMContentLoaded", function () {
+  const bgm = document.getElementById('live2d_bgm');
+  const musicBtn = document.getElementById('musicButton');
+  const musicInputs = document.querySelectorAll('input[name=live2dBGM]');
+
+  if (musicInputs.length === 0) {
+    musicBtn.style.display = 'none';
+    return;
+  }
+
+  let currentIndex = parseInt(sessionStorage.getItem("live2dBGM_Num")) || 0;
+  let currentTime = parseFloat(sessionStorage.getItem("live2dBGM_PlayTime")) || 0;
+  let isPlayingStored = sessionStorage.getItem("live2dBGM_IsPlay") === '0';
+  let isWindowClose = sessionStorage.getItem("live2dBGM_WindowClose") === '0';
+
+  const setSource = (index, resume = false) => {
+    const src = musicInputs[index].value;
+    bgm.src = src;
+    bgm.setAttribute('data-bgm', index);
+    if (resume) {
+      bgm.addEventListener('loadedmetadata', function onceLoaded() {
+        bgm.removeEventListener('loadedmetadata', onceLoaded);
+        bgm.play().catch(() => {
+        });
+      });
+    }
+  };
+
+  setSource(currentIndex);
+  bgm.currentTime = currentTime;
+  bgm.volume = 0.5;
+
+  if (isPlayingStored && isWindowClose) {
+    bgm.addEventListener('loadedmetadata', function onceLoaded() {
+      bgm.removeEventListener('loadedmetadata', onceLoaded);
+      bgm.currentTime = currentTime;
+      bgm.play().catch(() => {
+      });
+      musicBtn.classList.add('play');
+    });
+  }
+
+  musicBtn.addEventListener('click', () => {
+    if (musicBtn.classList.contains('play')) {
+      bgm.pause();
+      musicBtn.classList.remove('play');
+      sessionStorage.setItem("live2dBGM_IsPlay", '1');
+    } else {
+      bgm.play().catch(() => {
+      });
+      musicBtn.classList.add('play');
+      sessionStorage.setItem("live2dBGM_IsPlay", '0');
+    }
+  });
+
+  bgm.addEventListener("ended", () => {
+    currentIndex = (currentIndex + 1) % musicInputs.length;
+    sessionStorage.setItem("live2dBGM_Num", currentIndex);
+    setSource(currentIndex, true);
+  });
+
+  bgm.addEventListener("timeupdate", () => {
+    sessionStorage.setItem("live2dBGM_PlayTime", bgm.currentTime.toString());
+  });
+
+  bgm.addEventListener("error", () => {
+    bgm.pause();
+    musicBtn.classList.remove('play');
+    if (typeof showMessage === 'function') {
+      showMessage('音乐似乎加载不出来了呢！', 0);
+    } else {
+      alert("音乐加载失败！");
+    }
+  });
+
+  window.addEventListener("beforeunload", () => {
+    sessionStorage.setItem("live2dBGM_WindowClose", '0');
+    const isPlaying = musicBtn.classList.contains('play') ? '0' : '1';
+    sessionStorage.setItem("live2dBGM_IsPlay", isPlaying);
+  });
+
+  sessionStorage.setItem("live2dBGM_WindowClose", '1');
+});
+
+
+</script><!-- ✅ 有毒按钮特效--><script>document.addEventListener("DOMContentLoaded", function () {
+  $('#youduButton').on('click', function () {
+    if ($('#youduButton').hasClass('doudong')) {
+      var typeIs = $('#youduButton').attr('data-type');
+      $('#youduButton').removeClass('doudong');
+      $('body').removeClass(typeIs);
+      $('#youduButton').attr('data-type', '');
+    } else {
+      var duType = $('#duType').val();
+      var duArr = duType.split(",");
+      var dataType = duArr[Math.floor(Math.random() * duArr.length)];
+
+      $('#youduButton').addClass('doudong');
+      $('#youduButton').attr('data-type', dataType);
+      $('body').addClass(dataType);
+    }
+  });
+});
+
+</script><!-- ✅ 插入其他 JS（推荐在最后）--><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"><script>(() => {
+  const runMermaid = ele => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    ele.forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = `%%{init:{ 'theme':'${theme}'}}%%\n`
+      const mermaidID = `mermaid-${index}`
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+      const renderMermaid = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      // mermaid v9 and v10 compatibility
+      typeof renderFn === 'string' ? renderMermaid(renderFn) : renderFn.then(({ svg }) => renderMermaid(svg))
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+
+    codeMermaidEle.forEach(ele => {
+      const preEle = document.createElement('pre')
+      preEle.className = 'mermaid-src'
+      preEle.hidden = true
+      preEle.textContent = ele.textContent
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.appendChild(preEle)
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    if (false) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaidFn)
+  }
+
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script></div><script>
+  let tianliGPT_postSelector = '#post #article-container';
+  let tianliGPT_Title = '小关智能摘要';
+  let tianliGPT_theme = 'yanzhi';
+  let tianliGPT_key = 'S-PC0U3BZQIHR3D3LQ';
+</script>
+<script src="https://ai.zhheo.com/static/public/tianli_gpt.min.js"></script><script async="" data-pjax="" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div>
+    <link rel="stylesheet" href="https://ai.tianli0.top/static/public/postChatUser_summary.min.css">
+    <script>
+        let tianliGPT_key = 'S-PC0U3BZQIHR3D3LQ';
+        let tianliGPT_postSelector = '#post #article-container';
+        let tianliGPT_Title = '文章摘要';
+        let tianliGPT_postURL = '/^https?://[^/]+/[0-9]{4}/[0-9]{2}/[0-9]{2}/';
+        let tianliGPT_blacklist = '';
+        let tianliGPT_wordLimit = '1000';
+        let tianliGPT_typingAnimate = true;
+        let tianliGPT_theme = 'default';
+        var postChatConfig = {
+          backgroundColor: "#3e86f6",
+          bottom: "16px",
+          left: "16px",
+          fill: "#FFFFFF",
+          width: "44px",
+          frameWidth: "375px",
+          frameHeight: "600px",
+          defaultInput: true,
+          upLoadWeb: true,
+          showInviteLink: true,
+          userTitle: "PostChat",
+          userDesc: "如果你对网站的内容有任何疑问，可以来问我哦～",
+          addButton: true,
+          beginningText: "这篇文章介绍了",
+          userIcon: "https://ai.tianli0.top/static/img/PostChat.webp",
+          userMode: "magic",
+          defaultChatQuestions: ["你好","你是谁"],
+          defaultSearchQuestions: ["视频压缩","设计"]
+        };
+    </script>
+    <script data-postchat_key="S-PC0U3BZQIHR3D3LQ" src="https://ai.tianli0.top/static/public/tianli_gpt.min.js"></script>
+  </body></html>
